@@ -95,14 +95,14 @@ app.ModelView = Backbone.View.extend({
     };
 
     // Create a new Template (if necessary)! ***
-    var newTemplate = "<tr><td><%= Name %></td><td><%= Ingredients %></td><td><%= Toppings %></td><td><button class='delete'>X</button></td></tr>";
+    //var newTemplate = "<tr><td><%= Name %></td><td><%= Ingredients %></td><td><%= Toppings %></td><td><button class='delete'>X</button></td></tr>";
 
-    var nct = _.template(newTemplate);
+    //var nct = _.template(newTemplate);
 
     // Replace element name! ***
-    var collxnrow = document.getElementById('value');
-
-    collxnrow.innerHTML += nct(tempMdl);
+    // var collxnrow = document.getElementById('value');
+    //
+    // collxnrow.innerHTML += nct(tempMdl);
   }
 });
 
