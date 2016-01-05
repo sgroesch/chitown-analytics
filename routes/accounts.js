@@ -4,11 +4,9 @@ var LocalStrategy = require('passport-local').Strategy;
 var Account = require('../models/Account');
 var router = express.Router();
 
-// configure passport
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
-// end configuring for passport
 
 router.get('/', function(req, res){
   res.render('account', { user: req.user});
@@ -22,7 +20,7 @@ router.get('/register', function(req, res){
   res.render('register', { user: req.user});
 });
 
-router.post('/login', passport.authenticate('local', { failureRedirect: '/account' }),
+router.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
   function(req, res) {
     res.redirect('/');
   }
@@ -30,12 +28,13 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/accoun
 
 router.post('/register', function(req, res){
   Account.register(new Account({
-    username: req.body.username
+    username: req.body.username,
+    email: req.body.email
   }),
   req.body.password,
   function(err, account) {
     if (err) {
-      return res.render('register', { account: account});
+      return res.render('register', { account: account });
       // message to require registering
     }
     passport.authenticate('local')(req, res, function() {
