@@ -9,14 +9,31 @@ var crime = require('../models/crime')
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  console.log('create mischief.');
-  var url = 'https://data.cityofchicago.org/resource/ijzp-q8t2.json?$limit=5&$order=:id';
+router.get('/api', function(req, res, next) {
+  console.log('litany of sins.');
 
+  crime.find(function(err, crimes) {
+    if (err) {
+      returnError(err);
+    } else {
+      res.json(crimes);
+    }
+  });
+});
+
+router.post('/api', function(request, response, next) {
+  // Requesting from City of Chicago: Crimes.
+  requestResource('https://data.cityofchicago.org/resource/ijzp-q8t2.json?$limit=5&$order=:id');
+
+});
+
+function returnError (error) {
+  console.error('Error: ' + error.message);
+};
+
+function requestResource (url) {
   var data = "";
   var req = https.get(url, function(response) {
-    // Do something with the response.
-    // response.statusCode is an attribute of the response object.
     console.log('Received response: ' + response.statusCode)
     var body = "";
     response.on('data', function (chunk) {
@@ -41,13 +58,7 @@ router.get('/', function(req, res, next) {
             console.log('created: ' + data);
           });
         });
-        crime.find(function(err, crimes) {
-          if (err) {
-            returnError(err);
-          } else {
-            res.json(crimes);
-          }
-        })
+
         // res.json('index', data);
       }
       else {
@@ -56,11 +67,8 @@ router.get('/', function(req, res, next) {
     });
     req.on("error", returnError);
   });
+};
 
-  function returnError (error) {
-    console.error('Error: ' + error.message);
-  };
-});
 
 // var findCaseNumber = function(db, callback) {
 //    var cursor = db.collection('Put Collection Here').find( );

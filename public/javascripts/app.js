@@ -32,7 +32,7 @@ app.Collection = Backbone.Collection.extend({
   },
 
   // Replace route! ***
-  url: '/pancake'
+  url: '/api'
 
 });
 
