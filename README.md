@@ -1,4 +1,5 @@
-# chitown-analytics
+# Chitown Analytics
 We do some stuff with some Chicago Data
 
-## Test Done
+### Notes
+- change to Crime.js

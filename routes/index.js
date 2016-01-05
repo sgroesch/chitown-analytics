@@ -4,7 +4,7 @@ var http = require('http');
 var https = require('https');
 var xml2js = require('xml2js');
 var parser = new xml2js.Parser();
-var crime = require('./../models/crime')
+var crime = require('../models/crime')
 // var get_https = require("./get_https.js");
 
 
@@ -41,8 +41,14 @@ router.get('/', function(req, res, next) {
             console.log('created: ' + data);
           });
         });
-
-        res.json('index', data);
+        crime.find(function(err, crimes) {
+          if (err) {
+            returnError(err);
+          } else {
+            res.json(crimes);
+          }
+        })
+        // res.json('index', data);
       }
       else {
         returnError({message: "Status code: " + http.STATUS_CODES[response.statusCode]});
@@ -55,5 +61,62 @@ router.get('/', function(req, res, next) {
     console.error('Error: ' + error.message);
   };
 });
+
+// var findCaseNumber = function(db, callback) {
+//    var cursor = db.collection('Put Collection Here').find( );
+//    cursor.each(function(err, doc) {
+//       assert.equal(err, null);
+//       if (doc != null) {
+//          console.dir(doc);
+//       } else {
+//          callback();
+//       }
+//    });
+// };
+
+function makeDateObject(dataToOrganize) {
+  var newDateObject = {};
+  newDateObject.year = parseInt(dataToOrganize.slice(0,4),10);
+  newDateObject.month = parseInt(dataToOrganize.slice(5,7),10);
+  newDateObject.day = parseInt(dataToOrganize.slice(8,10),10);
+  newDateObject.hour = parseInt(dataToOrganize.slice(11,13),10);
+  newDateObject.minute = parseInt(dataToOrganize.slice(14,16),10);
+  return newDateObject;
+};
+
+function later(currentData, newDataToCheck) {
+  if (currentData.year == newDataToCheck.year) {
+    if (currentData.month == newDataToCheck.month) {
+      if (currentData.day == newDataToCheck.day) {
+        if (currentData.hour == newDataToCheck.hour) {
+          if (currentData.minute == newDataToCheck.minute) {
+            return currentData;
+          } else if (currentData.minute > newDataToCheck.minute) {
+            return currentData;
+          } else {
+            return newDataToCheck;
+          }
+        } else if (currentData.hour > newDataToCheck.hour) {
+          return currentData;
+        } else {
+          return newDataToCheck;
+        }
+      } else if (currentData.day > newDataToCheck.day) {
+        return currentData;
+      } else {
+        return newDataToCheck;
+      }
+    } else if (currentData.month > newDataToCheck.month) {
+      return currentData;
+    } else {
+      return newDataToCheck;
+    }
+  } else if (currentData.year > newDataToCheck.year) {
+    return currentData;
+  } else {
+    return newDataToCheck;
+  }
+};
+
 
 module.exports = router;
