@@ -46,63 +46,60 @@ app.CollectionView = Backbone.View.extend({
     var models = this.collection.models;
 
     // Replace element name! ***
-    var collxnview = document.getElementById('value');
+    // var collxnview = document.getElementById('value');
+    //
+    // collxnview.innerHTML = "";
 
-    collxnview.innerHTML = "";
-    for (var i = 0; i < models.length; i++) {
-      new app.ModelView({
-        model: models[i]
-      });
-    };
+    receive(models);
   }
 });
 
-app.ModelView = Backbone.View.extend({
-  // Pick a new one.
-  // el: $('#something'),
-  initialize: function() {
-    console.log('A modelView was dynamically generated');
-    // console.log(this);
-    this.render();
-  },
-  render: function() {
-
-    // Correct as needed! ***
-
-    var tempMdl = {
-      id: this.model.attributes.id,
-      caseNumber: this.model.attributes.case_number,
-      date: this.model.attributes.date,
-      arrest: this.model.attributes.arrest,
-      domestic: this.model.attributes.domestic,
-      iucr: this.model.attributes.iucr,
-      primaryType: this.model.attributes.primary_type,
-      description: this.model.attributes.description,
-      latitude: this.model.attributes.latitude,
-      longitude: this.model.attributes.longitude,
-      locationDescription: this.model.attributes.location_description,
-      beat: this.model.attributes.beat,
-      block: this.model.attributes.block,
-      district: this.model.attributes.district,
-      ward: this.model.attributes.ward,
-      fbiCode: this.model.attributes.fbi_code,
-      updatedOn: this.model.attributes.updated_on,
-      year: this.model.attributes.year
-    };
-
-    console.log(tempMdl);
-    
-    // Create a new Template (if necessary)! ***
-    var newTemplate = "<tr><td><%= Name %></td><td><%= Ingredients %></td><td><%= Toppings %></td><td><button class='delete'>X</button></td></tr>";
-
-    var nct = _.template(newTemplate);
-
-    // Replace element name! ***
-    var collxnrow = document.getElementById('value');
-
-    collxnrow.innerHTML += nct(tempMdl);
-  }
-});
+// app.ModelView = Backbone.View.extend({
+//   // Pick a new one.
+//   // el: $('#something'),
+//   initialize: function() {
+//     console.log('A modelView was dynamically generated');
+//     // console.log(this);
+//     this.render();
+//   },
+//   render: function() {
+//
+//     // Correct as needed! ***
+//
+//     var tempMdl = {
+//       id: this.model.attributes.id,
+//       caseNumber: this.model.attributes.case_number,
+//       date: this.model.attributes.date,
+//       arrest: this.model.attributes.arrest,
+//       domestic: this.model.attributes.domestic,
+//       iucr: this.model.attributes.iucr,
+//       primaryType: this.model.attributes.primary_type,
+//       description: this.model.attributes.description,
+//       latitude: this.model.attributes.latitude,
+//       longitude: this.model.attributes.longitude,
+//       locationDescription: this.model.attributes.location_description,
+//       beat: this.model.attributes.beat,
+//       block: this.model.attributes.block,
+//       district: this.model.attributes.district,
+//       ward: this.model.attributes.ward,
+//       fbiCode: this.model.attributes.fbi_code,
+//       updatedOn: this.model.attributes.updated_on,
+//       year: this.model.attributes.year
+//     };
+//
+//     console.log(tempMdl);
+//
+//     Create a new Template (if necessary)! ***
+//     var newTemplate = "<tr><td><%= Name %></td><td><%= Ingredients %></td><td><%= Toppings %></td><td><button class='delete'>X</button></td></tr>";
+//
+//     var nct = _.template(newTemplate);
+//
+//     Replace element name! ***
+//     var collxnrow = document.getElementById('value');
+//
+//     collxnrow.innerHTML += nct(tempMdl);
+//   }
+// });
 
 $(document).ready(function () {
   console.log('Crimes!');
