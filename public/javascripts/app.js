@@ -71,29 +71,27 @@ app.ModelView = Backbone.View.extend({
 
     var tempMdl = {
       id: this.model.attributes.id,
-      caseNumber: this.model.attributes.caseNumber,
+      caseNumber: this.model.attributes.case_number,
       date: this.model.attributes.date,
-      block: this.model.attributes.block,
-      iucr: this.model.attributes.iucr,
-      primaryType: this.model.attributes.primaryType,
-      description: this.model.attributes.description,
-      locationDescription: this.model.attributes.locationDescription,
       arrest: this.model.attributes.arrest,
       domestic: this.model.attributes.domestic,
-      beat: this.model.attributes.beat,
-      district: this.model.attributes.district,
-      ward: this.model.attributes.ward,
-      communityArea: this.model.attributes.communityArea,
-      fbiCode: this.model.attributes.fbiCode,
-      xCoordinate: this.model.attributes.xCoordinate,
-      yCoordinate: this.model.attributes.yCoordinate,
-      year: this.model.attributes.year,
-      updatedOn: this.model.attributes.updatedOn,
+      iucr: this.model.attributes.iucr,
+      primaryType: this.model.attributes.primary_type,
+      description: this.model.attributes.description,
       latitude: this.model.attributes.latitude,
       longitude: this.model.attributes.longitude,
-      location: this.model.attributes.location
+      locationDescription: this.model.attributes.location_description,
+      beat: this.model.attributes.beat,
+      block: this.model.attributes.block,
+      district: this.model.attributes.district,
+      ward: this.model.attributes.ward,
+      fbiCode: this.model.attributes.fbi_code,
+      updatedOn: this.model.attributes.updated_on,
+      year: this.model.attributes.year
     };
 
+    console.log(tempMdl);
+    
     // Create a new Template (if necessary)! ***
     var newTemplate = "<tr><td><%= Name %></td><td><%= Ingredients %></td><td><%= Toppings %></td><td><button class='delete'>X</button></td></tr>";
 
