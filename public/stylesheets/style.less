@@ -1,10 +1,12 @@
 html, body{
   margin: 0;
   padding: 0;
-  background-color: hsla(200, 71%, 83%, .1);
+  background-color: hsla(200, 71%, 83%, .5);
   width: 100%;
   height: 100%;
   font-family: 'Share', cursive;
+  box-sizing: border-box;
+
 
   nav{
     background-color: rgba(250, 250, 250, 1);
@@ -28,51 +30,51 @@ html, body{
     }
     #nav_unit{
       float: right;
-      background: blue;
+      background-color: rgba(0, 0, 0, .15);
       width: 20%;
       height: 100%;
       padding: 0;
       margin: 0;
 
 
+
       #logocon{
         clear: both;
-        margin: 2.5% 0;
+        margin: 1% 0;
         padding: 0;
         font-size: 10vh;
         text-align: center;
 
       }
       #user_list{
-        background-color: pink;
         text-align: center;
 
       }
       .nav_list{
         list-style: none;
-        background-color: red;
         padding: 0;
         margin: 0;
         width: 20%;
         bottom: 0;
-        float: right;
         width: 100%;
+        box-sizing: border-box;
         .navUnits{
           display: block;
           border: 2px black solid;
           font-size: 1.5vw;
-          margin: 2px 0;
+          margin: 2px auto;
           text-align: center;
+          padding: 1% 0;
+          width: 60%;
           .fa{
             margin-right: 3px;
           }
         }
         .userBtns{
-          background-color: blue;
           display: inline-flex;
           border: 2px black solid;
           font-size: 1.5vw;
-          margin: 2px 0;
+          margin: 10px 0;
           text-align: center;
           padding: 3% 5%;
         }
@@ -80,20 +82,63 @@ html, body{
     }
   }
   #landing_page_content{
-    background-color: rgba(0, 0, 0, .15);
+    color: rgba(250, 250, 250, 1);
+    display: none;
+    background-color: rgba(0, 0, 0, .1);
     position: absolute;
     width: 100%;
     height: 70%;
     top: 30%;
     margin: 0;
     padding: 0;
-    div{
+    #lp_content{
+      margin: 0;
+      padding: 0;
+      width: 70%;
+      height: 100%;
+      padding: 0 5%;
+      float: left;
+      overflow-y: auto;
+
+      h1{
+        width: 70%;
+      }
+      .lpInfo{
+        width: 55%;
+        margin-left: 7.5%;
+        text-align: justify;
+      }
+      hr{
+        margin: 0;
+        width: 70%;
+        border: 0;
+        height: 1px;
+        background: hsla(10, 10, 10, 1);
+      }
+      .lpList{
+        width: 50%;
+        margin-left: 7.5%;
+        list-style-type: square;
+        li{
+            color: rgba(250, 250, 250, .8);
+
+            a{
+              color: red;
+            }
+        }
+      }
+    }
+    #lp_title{
       width: 20%;
+      color: black;
       background-color: rgba(250, 250, 250, 1);
       height: 100%;
       margin: 0;
       padding: 0;
       float: right;
+      -webkit-box-shadow: inset 10px 10px 22px -6px rgba(0,0,0,0.75);
+      -moz-box-shadow: inset 10px 10px 22px -6px rgba(0,0,0,0.75);
+      box-shadow: inset 10px 10px 22px -6px rgba(0,0,0,0.75);
       ol{
         list-style: none;
         padding:0;
