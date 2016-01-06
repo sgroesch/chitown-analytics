@@ -2,4 +2,21 @@
 We do some stuff with some Chicago Data
 
 ### Notes
-- change to Crime.js
+- Add link to User Stories
+- Add link wireframes
+
+
+### Technologies Used
+- Express
+- MongoDB
+- Backbone
+- jQuery
+- Passport
+- Handlebars
+
+### Installation Instructions
+- npm install
+
+### Unsolved Problems/Major hurdles
+
+### Future additions
