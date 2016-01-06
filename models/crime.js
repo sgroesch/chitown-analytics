@@ -1,28 +1,24 @@
 var mongoose = require('mongoose');
 
 var api_schema = new mongoose.Schema({
-  id: String,
-  caseString: String,
-  date: String,
-  block: String,
-  iucr: String,
-  primaryType: String,
-  description: String,
-  locationDescription: String,
   arrest: Boolean,
-  domestic: Boolean,
   beat: String,
+  block: String,
+  case_number: String,
+  date: String,
+  description: String,
   district: String,
-  ward: String,
-  communityArea: String,
-  fbiCode: String,
-  xCoordinate: String,
-  yCoordinate: String,
-  year: String,
-  updatedOn: String,
+  domestic: Boolean,
+  fbi_code: String,
+  id: String,
+  iucr: String,
   latitude: String,
   longitude: String,
-  location: Object
+  location_description: String,
+  primary_type: String,
+  updated_on: String,
+  ward: String,
+  year: String
 });
 
-module.exports = (mongoose.model('crime', api_schema, 'crime'));
+module.exports = mongoose.model('crime', api_schema, 'crime');
