@@ -171,35 +171,100 @@ html, body{
       #info_card{
         z-index: 2;
         background: purple;
+        // .noliStyle{
+        //   list-style: none;
+        // }
         #aLeft{
           float: left;
         }
         .infoArrows{
           width: 15%;
           height: 100%;
-          background: pink;
           float: right;
 
           .fa{
             font-size: 15vh;
             color: white;
             position: absolute;
-
+            top: 40%;
           }
           .fa-chevron-left{
-            left: 2.5%;
-            color: black;
+            left: 4%;
           }
           .fa-chevron-right{
-            right: 10%;
+            right: 4%;
           }
         }
         #info_display_container{
+          background-color: pink;
           position: absolute;
-          background-color: blue;
           left: 15%;
           width: 70%;
           height: 100%;
+          z-index: 4;
+
+          .infoOLs{
+            background-color: red;
+            padding: 3.5% 0;
+            text-align: center;
+            margin: 5% 0;
+
+            .hideThis{
+              opacity: 0;
+            }
+            li{
+              display: inline-block;
+              font-size: 4vh;
+              background-color: blue;
+              width: 25%;
+            }
+          }
+          #additional_info_container{
+            background-color: blue;
+            width: 70%;
+            height: 20%;
+            margin: 0 auto;
+            overflow-y: hidden;
+
+            #aic_description{
+                background-color: purple;
+                margin: 0;
+                padding: 0;
+                display: block;
+                float: left;
+                margin-top: 3%;
+                margin-left: 10%;
+                padding: .5% 5%;
+                max-width: 50%;
+                height: 50%;
+                text-align: center;
+            }
+            #aic_list{
+              background-color: red;
+              margin: 0;
+              padding: 0;
+              list-style: none;
+              width: 20%;
+              height: 100%;
+              float: right;
+              overflow-y: auto;
+              li{
+                display: block;
+                background-color: green;
+                width:100%;
+                margin-top: 2%;
+                padding: 4% 0;
+                text-align: center;
+
+                span{
+                  padding: 2.5%;
+                  background-color: blue;
+                  vertical-align: middle;
+                  font-size: 2vh;
+                }
+              }
+            }
+          }
         }
       }
       #map_card{
