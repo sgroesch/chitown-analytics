@@ -5,12 +5,15 @@ var tempSorted = [];
 
 function receive(models_array) {
   collection = models_array;
-  parseByDate(collection);
+  parseByDate(collection, "ROBBERY");
   convertToGraphEdible(crime_by_date);
+  // convertToUnix(crime_count_by_date);
+  // sort(crime_count_by_date);
+  drawChart();
 };
 
 // This method clumps crimes together by date
-function parseByDate(models) {
+function parseByDate(models, ptype) {
   var tempShared = [];
   var initial_time = new Date(models[models.length - 1].attributes.date);
   for (var i = models.length - 1; i >= 0; i--) {
@@ -18,72 +21,81 @@ function parseByDate(models) {
     if(initial_time.getFullYear() == compare_against.getFullYear()) {
       if (initial_time.getMonth() == compare_against.getMonth()) {
         if (initial_time.getDate() == compare_against.getDate()) {
-          tempShared.push([compare_against, models[i].attributes.primary_type]);
-          models.splice(i, 1);
+            // console.log(models[i]);
+            tempShared.push([compare_against, models[i].attributes.primary_type]);
+            models.splice(i, 1);
         };
       };
     };
   };
   crime_by_date.push(tempShared);
-  // console.log(crime_by_date);
   if (models.length > 0) {
-    parseByDate(models);
+    parseByDate(models, ptype);
   }
   else {
-    // console.log(crime_by_date);
+    console.log(crime_by_date);
   };
 };
 
-function sortThisMotherfucker (models) {
-  var latest = models[i][0][0];
-  var latest_index = 0;
-  while (models.length >= 0) {
-    for (var i = models.length - 1; i >= 0; i--) {
-      if (models[i - 1][0][0] != null) {
-        if (models[i - 1][0][0].getFullYear() >= latest.getFullYear()) {
-          if (models[i - 1][0][0].getMonth() >= latest.getMonth()) {
-            if (models[i - 1][0][0].getDate() >= latest.getDate()) {
-              latest = models[i - 1][0][0];
-              latest_index = i - 1;
-            };
-          };
-        };
-      }
-      else {
-        latest = models[i][0][0];
-        latest_index = i;
+function convertToUnix(models) {
+  for (var i = 0; i < models.length; i++) {
+    models[i][0] = models[i][0].getTime();
+  };
+  // console.table(crime_count_by_date);
+};
+
+function sort(models) {
+  var biggest = models[0][0];
+  var biggest_index = 0;
+  // while (models.length > 0) {
+    for (var i = 0; i < models.length; i++) {
+      if (models[i][0] >= biggest) {
+        biggest = models[i][0];
+        biggest_index = i;
       };
     };
-    tempSorted.push(models[latest_index]);
-    models.splice(latest_index, 1);
-  };
+    tempSorted.unshift(models[i]);
+    models.splice(i, 1);
+  // };
+  console.log(models);
 };
-
 // ---------------
 // Proof of concept to convert data to graph readable format.
 // ---------------
 
-function convertToGraphEdible (models) {
+function convertToGraphEdible(models) {
   for (var i = 0; i < models.length; i++) {
     crime_count_by_date.push([models[i][0][0], models[i].length]);
   };
-  crime_count_by_date.unshift(['Date', 'Incidences']);
-  console.table(crime_count_by_date);
+  // console.log(crime_count_by_date);
 };
 
-google.load("visualization", "1", {packages:["corechart"]});
-google.setOnLoadCallback(drawChart);
-function drawChart() {
-  var data = google.visualization.arrayToDataTable(crime_count_by_date);
+google.charts.load('current', {packages: ['corechart', 'bar']});
+// google.setOnLoadCallback(drawChart);
 
-  var options = {
-    title: 'Crime over Time',
-    hAxis: {title: 'Date', minValue: new Date(2011, 1, 1), maxValue: new Date(2014, 1, 1)},
-    vAxis: {title: 'Incidences', minValue: 0, maxValue: 50},
-    legend: 'none'
+function drawChart() {
+
+  var data = new google.visualization.DataTable();
+  data.addColumn('date', 'Time of Day');
+  data.addColumn('number', 'Incidents');
+
+  for (var i = 0; i < crime_count_by_date.length; i++) {
+    data.addRow([crime_count_by_date[i][0],crime_count_by_date[i][1]]);
   };
 
-  var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+  var options = {
+    title: 'Crime in Chicago',
+    chartArea: {width: '50%'},
+    hAxis: {
+      title: 'Incidents',
+      minValue: 0
+    },
+    vAxis: {
+      title: 'Date',
+    }
+  };
+
+  var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
 
   chart.draw(data, options);
 };

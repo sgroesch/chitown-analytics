@@ -27,7 +27,7 @@ router.get('/api', function(req, res, next) {
 
 router.post('/api', function(request, response, next) {
   // Requesting from City of Chicago: Crimes.
-  requestResource('https://data.cityofchicago.org/resource/ijzp-q8t2.json?$limit=500&$order=:id');
+  requestResource('https://data.cityofchicago.org/resource/ijzp-q8t2.json?$limit=1000&$order=:id');
 
 });
 
