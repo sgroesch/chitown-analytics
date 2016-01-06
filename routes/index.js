@@ -9,6 +9,10 @@ var crime = require('../models/crime')
 
 
 /* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index');
+});
+
 router.get('/api', function(req, res, next) {
   console.log('litany of sins.');
 
@@ -23,7 +27,7 @@ router.get('/api', function(req, res, next) {
 
 router.post('/api', function(request, response, next) {
   // Requesting from City of Chicago: Crimes.
-  requestResource('https://data.cityofchicago.org/resource/ijzp-q8t2.json?$limit=5&$order=:id');
+  requestResource('https://data.cityofchicago.org/resource/ijzp-q8t2.json?$limit=500&$order=:id');
 
 });
 
@@ -37,14 +41,12 @@ function requestResource (url) {
     console.log('Received response: ' + response.statusCode)
     var body = "";
     response.on('data', function (chunk) {
-      // Display each chunk.
-      // console.log('chunk: ' + chunk);
       body += chunk;
     });
     response.on('end', function () {
       if (response.statusCode === 200) {
-        // var results = JSON.parse(body);
         data = JSON.parse(body);
+
         // var dajson;
         // var tempXML = parser.parseString(data, function (err, result) {
         //   dajson = result;
@@ -58,8 +60,6 @@ function requestResource (url) {
             console.log('created: ' + data);
           });
         });
-
-        // res.json('index', data);
       }
       else {
         returnError({message: "Status code: " + http.STATUS_CODES[response.statusCode]});
