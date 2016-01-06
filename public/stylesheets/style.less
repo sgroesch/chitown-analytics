@@ -158,4 +158,64 @@ html, body{
       }
     }
   }
+  #data_layers_page{
+    width: 100%;
+    height: 70%;
+    position: absolute;
+
+    #data_layers_container{
+      width: 100%;
+      height: 100%;
+      background-color: rgba(22, 103, 103, 1);
+      position: absolute;
+      #info_card{
+        z-index: 2;
+        background: purple;
+        #aLeft{
+          float: left;
+        }
+        .infoArrows{
+          width: 15%;
+          height: 100%;
+          background: pink;
+          float: right;
+
+          .fa{
+            font-size: 15vh;
+            color: white;
+            position: absolute;
+
+          }
+          .fa-chevron-left{
+            left: 2.5%;
+            color: black;
+          }
+          .fa-chevron-right{
+            right: 10%;
+          }
+        }
+        #info_display_container{
+          position: absolute;
+          background-color: blue;
+          left: 15%;
+          width: 70%;
+          height: 100%;
+        }
+      }
+      #map_card{
+        z-index: 1;
+      }
+      #metric_card{
+        z-index: 0;
+      }
+      .dataLayers{
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        position: absolute;
+        background-color: red;
+      }
+
+    }
+  }
 }
