@@ -5,15 +5,15 @@ var tempSorted = [];
 
 function receive(models_array) {
   collection = models_array;
-  parseByDate(collection, "ROBBERY");
+  parseByDate(collection);
   convertToGraphEdible(crime_by_date);
   // convertToUnix(crime_count_by_date);
   // sort(crime_count_by_date);
-  drawChart();
+  drawChart(crime_count_by_date);
 };
 
 // This method clumps crimes together by date
-function parseByDate(models, ptype) {
+function parseByDate(models) {
   var tempShared = [];
   var initial_time = new Date(models[models.length - 1].attributes.date);
   for (var i = models.length - 1; i >= 0; i--) {
@@ -22,7 +22,7 @@ function parseByDate(models, ptype) {
       if (initial_time.getMonth() == compare_against.getMonth()) {
         if (initial_time.getDate() == compare_against.getDate()) {
             // console.log(models[i]);
-            tempShared.push([compare_against, models[i].attributes.primary_type]);
+            tempShared.push([compare_against, models[i].attributes]);
             models.splice(i, 1);
         };
       };
@@ -30,7 +30,7 @@ function parseByDate(models, ptype) {
   };
   crime_by_date.push(tempShared);
   if (models.length > 0) {
-    parseByDate(models, ptype);
+    parseByDate(models);
   }
   else {
     console.log(crime_by_date);
@@ -59,6 +59,7 @@ function sort(models) {
   // };
   console.log(models);
 };
+
 // ---------------
 // Proof of concept to convert data to graph readable format.
 // ---------------
