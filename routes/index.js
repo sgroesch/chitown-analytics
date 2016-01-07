@@ -13,8 +13,9 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
-router.get('/api', function(req, res, next) {
-  console.log('litany of sins.');
+router.post('/api', function(request, response, next) {
+  // Requesting from City of Chicago: Crimes.
+  requestResource('https://data.cityofchicago.org/resource/ijzp-q8t2.json?$order=:id');
 
   crime.find(function(err, crimes) {
     if (err) {
@@ -25,11 +26,35 @@ router.get('/api', function(req, res, next) {
   });
 });
 
-router.post('/api', function(request, response, next) {
-  // Requesting from City of Chicago: Crimes.
-  requestResource('https://data.cityofchicago.org/resource/ijzp-q8t2.json?$limit=500&$order=:id');
 
+// ---------------
+// To call: /narcotics?start=MmddYYYY&end=MmddYYYY
+// ---------------
+
+router.get('/api', function(request, response, next) {
+
+  var primary = request.param('primary').toUpperCase();
+  var startPeriodTime = request.param('start');
+  var endPeriodTime = request.param('end');
+
+  console.log(primary);
+
+  crime.find(function(error, incidents) {
+    if (error) { console.log('items not found.'); };
+    var reports = [];
+    incidents.forEach(function(incident) {
+      if (incident.primary_type == primary) {
+        var incident_time = new Date(incident.date);
+        if (compareDate(startPeriodTime, endPeriodTime, incident_time) === true) {
+          reports.push(incident);
+        };
+      };
+    });
+    console.log(reports);
+    response.json(reports);
+  });
 });
+
 
 function returnError (error) {
   console.error('Error: ' + error.message);
@@ -69,6 +94,20 @@ function requestResource (url) {
   });
 };
 
+function compareDate (startPeriod, endPeriod, objTime) {
+  // console.log(startPeriod + ', ' + endPeriod);
+  var startString = startPeriod.substr(4,4) + '-' + startPeriod.substr(0,2) + '-' + startPeriod.substr(2,2) + 'T12:00:00';
+  var endString = endPeriod.substr(4,4) + '\-' + endPeriod.substr(0,2) + '\-' + endPeriod.substr(2,2) + 'T12:00:00';
+  // console.log(startString + ', ' + endString);
+  var startTime = new Date(startString);
+  var endTime = new Date(endString);
+  // console.log(startTime + ', ' + endTime);
+
+  if (startTime.getTime() <= objTime.getTime() && endTime.getTime() >= objTime.getTime()) {
+    return true;
+  };
+  return false;
+};
 
 // var findCaseNumber = function(db, callback) {
 //    var cursor = db.collection('Put Collection Here').find( );
@@ -81,50 +120,5 @@ function requestResource (url) {
 //       }
 //    });
 // };
-
-function makeDateObject(dataToOrganize) {
-  var newDateObject = {};
-  newDateObject.year = parseInt(dataToOrganize.slice(0,4),10);
-  newDateObject.month = parseInt(dataToOrganize.slice(5,7),10);
-  newDateObject.day = parseInt(dataToOrganize.slice(8,10),10);
-  newDateObject.hour = parseInt(dataToOrganize.slice(11,13),10);
-  newDateObject.minute = parseInt(dataToOrganize.slice(14,16),10);
-  return newDateObject;
-};
-
-function later(currentData, newDataToCheck) {
-  if (currentData.year == newDataToCheck.year) {
-    if (currentData.month == newDataToCheck.month) {
-      if (currentData.day == newDataToCheck.day) {
-        if (currentData.hour == newDataToCheck.hour) {
-          if (currentData.minute == newDataToCheck.minute) {
-            return currentData;
-          } else if (currentData.minute > newDataToCheck.minute) {
-            return currentData;
-          } else {
-            return newDataToCheck;
-          }
-        } else if (currentData.hour > newDataToCheck.hour) {
-          return currentData;
-        } else {
-          return newDataToCheck;
-        }
-      } else if (currentData.day > newDataToCheck.day) {
-        return currentData;
-      } else {
-        return newDataToCheck;
-      }
-    } else if (currentData.month > newDataToCheck.month) {
-      return currentData;
-    } else {
-      return newDataToCheck;
-    }
-  } else if (currentData.year > newDataToCheck.year) {
-    return currentData;
-  } else {
-    return newDataToCheck;
-  }
-};
-
 
 module.exports = router;
