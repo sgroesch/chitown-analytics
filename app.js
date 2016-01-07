@@ -22,10 +22,10 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
-var Account = require('./models/Account');
-passport.use(new LocalStrategy(Account.authenticate()));
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
+var Models = require('./models/Account');
+passport.use(new LocalStrategy(Models.Account.authenticate()));
+passport.serializeUser(Models.Account.serializeUser());
+passport.deserializeUser(Models.Account.deserializeUser());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

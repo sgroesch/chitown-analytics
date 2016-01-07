@@ -83,9 +83,49 @@
         <span><i class="fa fa-chevron-right"></i></span>
       </div>
     </div>
-    <div id="map_card" class="dataLayers">ab
+    <div id="map_card" class="dataLayers">
+      <div id=drop_down>
+          <select name="type" id="type">
+            <!-- <option value="all">ALL TYPES</option> -->
+          </select>
+          <select name="description" id="description">
+            <option value="All Subtypes">ALL SUBTYPES</option>
+          </select>
+      </div>
+      <div id="map" style="width: 50%; height: 100%;"></div>
     </div>
-    <div id="metric_card" class="dataLayers">abc
+    <div id="metric_card" class="dataLayers">
+      <div id="graph_form">
+        <p>
+          <h5>Offense</h5>
+          <select id="primary_type">
+            <option value="assault">Assault</option>
+            <option value="battery">Battery</option>
+            <option value="burglary">Burglary</option>
+            <!-- <option value="criminal sexual assault">Criminal Sexual Assault</option> -->
+            <option value="homicide">Homicide</option>
+            <!-- <option value="interference with public officer">Interference with Public Officer</option> -->
+            <option value="kidnapping">Kidnapping</option>
+            <!-- <option value="motor vehicle theft">Motor Vehicle Theft</option> -->
+            <option value="narcotics">Narcotics</option>
+            <!-- <option value="offense involving children">Offense Involving Children</option> -->
+            <option value="robbery">Robbery</option>
+            <option value="theft">Theft</option>
+          </select>
+        </p>
+        <p>
+          <h5>Period Start Date</h5>
+          <input type="text" id="start_date">
+        </p>
+        <p>
+          <h5>Period End Date</h5>
+          <input type="text" id="end_date">
+        </p>
+        <p>
+          <button id="submit">Submit</button>
+        </p>
+      </div>
+      <div id="chart_div"></div>
     </div>
   </div>
 </div>
