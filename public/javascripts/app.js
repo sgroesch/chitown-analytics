@@ -36,7 +36,7 @@ app.Collection = Backbone.Collection.extend({
 // form input values!!! This url will then be reusable by maps, also.
 // ---------------
 
-  url: '/narcotics?start=09012013&end=01012014'
+  url: '/api?primary=narcotics&start=09012013&end=01012014'
 
 });
 

@@ -9,7 +9,7 @@ function receive(models_array) {
   convertToGraphEdible(crime_by_date);
   // convertToUnix(crime_count_by_date);
   // sort(crime_count_by_date);
-  drawChart(crime_count_by_date);
+  drawBasic();
 };
 
 // This method clumps crimes together by date
@@ -71,32 +71,28 @@ function convertToGraphEdible(models) {
   // console.log(crime_count_by_date);
 };
 
-google.charts.load('current', {packages: ['corechart', 'bar']});
-// google.setOnLoadCallback(drawChart);
+google.charts.load('current', {packages: ['corechart', 'line']});
 
-function drawChart() {
+function drawBasic() {
 
-  var data = new google.visualization.DataTable();
-  data.addColumn('date', 'Time of Day');
-  data.addColumn('number', 'Incidents');
+      var data = new google.visualization.DataTable();
+      data.addColumn('date', 'X');
+      data.addColumn('number', 'Incidents');
 
-  for (var i = 0; i < crime_count_by_date.length; i++) {
-    data.addRow([crime_count_by_date[i][0],crime_count_by_date[i][1]]);
-  };
+      for (var i = 0; i < crime_count_by_date.length; i++) {
+        data.addRow([crime_count_by_date[i][0], crime_count_by_date[i][1]]);
+      }
 
-  var options = {
-    title: 'Crime in Chicago',
-    chartArea: {width: '50%'},
-    hAxis: {
-      title: 'Incidents',
-      minValue: 0
-    },
-    vAxis: {
-      title: 'Date',
+      var options = {
+        hAxis: {
+          title: 'Time'
+        },
+        vAxis: {
+          title: 'Incidents'
+        }
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
     }
-  };
-
-  var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-
-  chart.draw(data, options);
-};
