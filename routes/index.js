@@ -28,7 +28,7 @@ router.post('/api', function(request, response, next) {
 
 
 // ---------------
-// To call: /narcotics?start=MmddYYYY&end=MmddYYYY
+// To call: /narcotics?start=mmddyy&end=mmddyy
 // ---------------
 
 router.get('/api', function(request, response, next) {
