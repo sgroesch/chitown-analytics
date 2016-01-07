@@ -8,10 +8,6 @@ passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
-router.get('/', function(req, res){
-  res.render('loginandregister', { user: req.user});
-});
-
 router.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
   function(req, res) {
     res.redirect('/');

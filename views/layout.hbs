@@ -18,17 +18,41 @@
     <nav>
       <div id="flag_container"></div>
       <div id="nav_unit">
-        <div id="logocon"><i class="fa fa-bar-chart"></i></div>
-        <ul class="nav_list">
+        <div id="logocon">
+          <i class="fa fa-bar-chart"></i>
+        </div>
+        <ul class="navList">
           <li class="navUnits"><i class="fa fa-cubes"></i>Metrics</li>
           <li class="navUnits"><i class="fa fa-ellipsis-v"></i>Content</li>
         </ul>
-        <ul id="user_list"class="nav_list">
-          <li class="userBtns"><i class="fa fa-user-plus"></i></li>
-          <li class="userBtns"><i class="fa fa-users"></i></li>
+        <ul id="user_list" class="navList">
+          {{#if user}}
+            Welcome, {{user.username}}
+          {{else}}
+            <li id="login_btn" class="userBtns"><i class="fa fa-users"></i></li>
+            <li id="register_btn" class="userBtns"><i class="fa fa-user-plus"></i></li>
+          {{/if}}
         </ul>
       </div>
     </nav>
-    {{{body}}}
+    <div id="user_forms_container">
+      <span id="close_ufc"><i class="fa fa-times"></i></span>
+      <h1>User Portal</h1>
+      <form action="/account/login" method="post" id="login_form" class="userForms">
+        <input type="text" name="username" value="" placeholder="Username">
+        <input type="password" name="password" value="" placeholder="Password">
+        <input type="submit" value="Login">
+      </form>
+
+      <form action="/account/register" method="post" id="register_form" class="userForms">
+        <input type="text" name="username" value="" placeholder="Username">
+        <input type="email" name="email" value="" placeholder="Email">
+        <input type="password" name="password" value="" placeholder="Password">
+        <input type="submit" value="Create Account">
+      </form>
+    </div>
+    <div id="body_container">
+      {{{body}}}
+    </div>
   </body>
 </html>
