@@ -5,7 +5,8 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var Search = new Schema({
   primarycrime: String,
   subcrime: String,
-  time: String,
+  timeStart: String,
+  timeEnd: String,
   location: String
 });
 
