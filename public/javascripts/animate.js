@@ -1,5 +1,6 @@
+
 var cc;
-var ActiveTracker;
+
 window.onload = function(){
 
   //Beginning of user form container animations
@@ -25,7 +26,7 @@ window.onload = function(){
 
   $('#logocon').on('click', function(){
     var styleChange = {
-      margin: "1% 0 15% 0",
+      margin: "1% 0 10% 0",
       padding: "2% 0",
       fontSize: "5vh"
     };
@@ -52,8 +53,22 @@ window.onload = function(){
 
   //end of menu animation
 
+  //main nav process
+
+  $('#home_page').on('click', function(){
+    $('#landing_page_content').css({
+      visibility: 'visibile'
+    });
+    $('#data_layers_page').css({
+      visibility: 'hidden'
+    });
+  });
+  $('#data_page').on('click', function(){
+
+  });
+
+  //end of nav process
   //card nav animation
-  var ActiveTracker = 0;
 
   var ActiveCard = {
     opacity: '1'
@@ -85,6 +100,8 @@ window.onload = function(){
     hideAllAndShowOne('#metric_card');
     $('#metric_card').animate(ActiveCard, 500, function(){});
   });
+
+  //end of card nav
 
 
 }
