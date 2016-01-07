@@ -19,4 +19,16 @@ We do some stuff with some Chicago Data
 
 ### Unsolved Problems/Major hurdles
 
+
 ### Future additions
+- Account Management page
+  - Change password
+  - Email verification
+
+
+#### To do
+- req.session to add to session
+- saved searches
+- ENV file for database name and API keys
+- Relate by having an array of ids
+- Recent searches

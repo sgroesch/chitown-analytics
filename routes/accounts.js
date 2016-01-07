@@ -9,15 +9,7 @@ passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
 router.get('/', function(req, res){
-  res.render('account', { user: req.user});
-});
-
-router.get('/login', function(req, res){
-  res.render('login', { user: req.user});
-});
-
-router.get('/register', function(req, res){
-  res.render('register', { user: req.user});
+  res.render('loginandregister', { user: req.user});
 });
 
 router.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
