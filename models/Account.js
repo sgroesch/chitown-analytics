@@ -14,8 +14,7 @@ var Account = new Schema({
   username: String, //required names for passport
   password: String, //required names for passport
   email: String,
-  savedSearches: [Search],
-  recentSearches: [Search]
+  savedSearches: [Search]
 });
 
 Account.plugin(passportLocalMongoose);

@@ -1,14 +1,20 @@
-<form action="/account/savesearch" method="post">
-  <input type="hidden" name="primarycrime" value="">
-  <input type="hidden" name="subcrime" value="">
-  <input type="hidden" name="subcrime" value="">
-  <input type="hidden" name="subcrime" value="">
-  <input type="hidden" name="subcrime" value="">
-  <input type="submit" value="Save Filters">
+<form id="saveForm" action="/account/savesearch" method="post">
+  <input id="hiddenPrimaryCrime" type="hidden" name="primarycrime" value="">
+  <input id="hiddenSubcrime" type="hidden" name="subcrime" value="">
+  <input id="hiddenTimeStart" type="hidden" name="timeStart" value="">
+  <input id="hiddenTimeEnd" type="hidden" name="timeEnd" value="">
+  <input id="hiddenLocation" type="hidden" name="location" value="">
+  <input type="submit" value="Save Filter">
 </form>
 
-primarycrime: String,
-subcrime: String,
-timeStart: String,
-timeEnd: String,
-location: String
+<script type="text/javascript">
+  $('#description').on('change', function() {
+    $('#hiddenPrimaryCrime').prop('value', $('#description option:selected').val());
+  });
+  $('#type').on('change', function() {
+    $('#hiddenSubcrime').prop('value', $('#type option:selected').val());
+  });
+  $('#startDate')
+  $('#startDate').val()
+  $('#endDate').val()
+</script>
