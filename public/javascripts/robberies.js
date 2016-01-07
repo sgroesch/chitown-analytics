@@ -31,12 +31,8 @@ app.Collection = Backbone.Collection.extend({
     this.fetch();
   },
 
-// ---------------
-// Need to connect this to form input via replacement of hardcoded params with
-// form input values!!! This url will then be reusable by maps, also.
-// ---------------
-
-  url: '/api?primary=narcotics&start=09012013&end=01012014'
+  // Replace route! ***
+  url: '/robberies'
 
 });
 
