@@ -54,6 +54,17 @@ app.CollectionView = Backbone.View.extend({
     //
     // collxnview.innerHTML = "";
 
+    // var tempMdl = {
+    //   Name: this.model.attributes.Name,
+    //   Ingredients: this.model.attributes.Ingredients,
+    //   Toppings: this.model.attributes.Toppings
+    // };
+    // // console.log(tempMdl);
+    // var newTemplate = "<tr><td><%= Name %></td><td><%= Ingredients %></td><td><%= Toppings %></td><td><button class='delete'>X</button></td></tr>";
+    // var nct = _.template(newTemplate);
+    // var collxnrow = document.getElementById('value');
+    // collxnrow.innerHTML += nct(tempMdl);
+
     receive(models);
   }
 });
@@ -106,6 +117,8 @@ app.CollectionView = Backbone.View.extend({
 // });
 
 $(document).ready(function () {
+  $("#start_date").datepicker();
+  $("#end_date").datepicker();
   console.log('Crimes!');
   active.collection = new app.Collection();
 });
