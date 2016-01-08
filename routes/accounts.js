@@ -56,13 +56,13 @@ var checkLength = function(inputToCheck, maxLength) {
 
 router.post('/savemap', function(req, res){
   var mapDetails = {
-    primarycrime: $('#hiddenPrimaryCrime').val(),
-    subcrime: $('#hiddenSubcrime').val(),
-    timeStart: $('#hiddenTimeStart').val(),
-    timeEnd: $('#hiddenTimeEnd').val()
+    primarycrime: req.body.primarycrime,
+    subcrime: req.body.subcrime,
+    timeStart: req.body.timeStart,
+    timeEnd: req.body.timeEnd
   }
   Models.Account.findOneAndUpdate({
-      'username': user.username
+      'username': req.user.username
     },
     {
     }, function(err, account) {
@@ -71,6 +71,7 @@ router.post('/savemap', function(req, res){
       account.save();
     }
   )
+  res.redirect('/');
 });
 
 router.get('/logout', function(req, res){
