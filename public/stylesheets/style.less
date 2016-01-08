@@ -22,15 +22,16 @@ html, body{
     bottom: 15%;
     right: 25%;
     left: 25%;
-    background: red;
+    background: rgba(250, 250, 250, .95);
     z-index: 999;
     -webkit-box-shadow: 0px 12px 30px -7px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 12px 30px -7px rgba(0,0,0,0.75);
     box-shadow: 0px 12px 30px -7px rgba(0,0,0,0.75);
     text-align: center;
     padding: 5%;
-    padding-top: 12.5%;
+    padding-top: 7.5%;
     display: none;
+
     #close_ufc{
       position: absolute;
       top: 1%;
@@ -47,27 +48,34 @@ html, body{
     .userForms{
       width: 50%;
       height: auto;
-      background-color: blue;
       margin: 0 auto;
-      padding-top: 15%;
+      padding-top: 10%;
 
       input{
         border: 2px solid black;
         display: block;
         text-align: center;
-        margin: 5% auto;
+        margin: 10% auto;
         font-size: 2vh;
         border-radius: 5px 5px 5px 5px;
         border-radius: 2px 2px 2px 2px;
         -moz-border-radius: 2px 2px 2px 2px;
         -webkit-border-radius: 2px 2px 2px 2px;
+        background-color: rgba(245, 245, 245, .5);
+
+        &:last-child{
+
+          &:hover{
+            background-color: rgba(150, 150, 150, 1);
+          }
+        }
       }
     }
   }
   nav{
     background-color: rgba(250, 250, 250, 1);
     width: 100%;
-    height: 30%;
+    height: 20%;
     position: absolute;
 
     #flag_container{
@@ -76,11 +84,11 @@ html, body{
       background-size: cover;
       background-position: center center;
       background-color: red;
-      width: 30%;
-      height: 95%;
+      width: 20%;
+      height: 90%;
       position: absolute;
       left: 10%;
-      top: 2%;
+      top: 5%;
       -webkit-box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.51);
       -moz-box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.51);
       box-shadow: inset 0px 0px 20px 3px rgba(0,0,0,0.51);
@@ -98,9 +106,9 @@ html, body{
 
       #logocon{
         clear: both;
-        margin: 10% 0 0 0;
+        margin: 5% 0 0 0;
         width: 100%;
-        padding: 15% 0;
+        padding: 5% 0;
         font-size: 10vh;
         text-align: center;
       }
@@ -118,14 +126,15 @@ html, body{
         width: 100%;
         box-sizing: border-box;
         display: none;
+        text-align: center;
         .navUnits{
-          display: block;
+          display: inline-block;
           border: 2px black solid;
           font-size: 2.5vh;
           margin: 2px auto;
           text-align: center;
           padding: 0% 0;
-          width: 60%;
+          width: 30%;
           .fa{
             margin-right: 3px;
           }
@@ -133,22 +142,22 @@ html, body{
         .userBtns{
           display: inline-flex;
           border: 2px black solid;
-          font-size: 2.5vh;
-          margin: 10px 0;
+          font-size: 2vh;
+          margin: 1% 0;
           text-align: center;
-          padding: 3% 5%;
+          padding: 2% 5%;
         }
       }
     }
   }
   #landing_page_content{
     z-index: 4;
-    color: rgba(250, 250, 250, 1);
-    background-color: rgba(0, 0, 0, 1);
+    color: rgba(10, 10, 10, .5);
+    background-color: rgba(179, 221, 242, 1);
     position: absolute;
     width: 100%;
-    height: 70%;
-    top: 30%;
+    height: 80%;
+    top: 20%;
     margin: 0;
     padding: 0;
     //very important
@@ -157,51 +166,47 @@ html, body{
     #lp_content{
       margin: 0;
       padding: 0;
-      width: 70%;
+      width: 60%;
       height: 100%;
-      padding: 0 5%;
-      float: left;
+      padding: 0 10%;
       overflow-y: auto;
+      position: absolute;
+      display: block;
 
       h1{
+        margin-top: 10%;
         width: 70%;
       }
       .lpInfo{
         width: 55%;
-        margin-left: 7.5%;
+        margin-left: 10%;
         text-align: justify;
       }
       hr{
         margin: 0;
         width: 70%;
         border: 0;
-        height: 1px;
-        background: hsla(10, 10, 10, 1);
+        height: 2px;
+        background: hsla(10, 10, 10, .7);
       }
       .lpList{
         width: 50%;
-        margin-left: 7.5%;
+        margin-left: 10%;
         list-style-type: square;
-        li{
-            color: rgba(250, 250, 250, .8);
-
-            a{
-              color: red;
-            }
-        }
       }
     }
     #lp_title{
       width: 20%;
       color: black;
+      float: right;
       background-color: rgba(250, 250, 250, 1);
       height: 100%;
       margin: 0;
       padding: 0;
-      float: right;
       -webkit-box-shadow: inset 10px 10px 22px -6px rgba(0,0,0,0.75);
       -moz-box-shadow: inset 10px 10px 22px -6px rgba(0,0,0,0.75);
       box-shadow: inset 10px 10px 22px -6px rgba(0,0,0,0.75);
+      visibility: visible;
       ol{
         list-style: none;
         padding:0;
@@ -212,29 +217,32 @@ html, body{
           margin: 0;
         }
         li{
-          font-size: 2vw;
+          font-size: 3.75vh;
           font-weight: 700;
           width: auto;
-          margin: -2% 0;
+          margin: 0 0;
           text-align: center;
         }
       }
     }
   }
   #data_layers_page{
-    width: 100%;
-    height: 70%;
-    top: 30%;
+    width: 0;
+    height: 80%;
+    top: 20%;
     z-index: 3;
     position: absolute;
-    display: none;
 
     #card_nav{
       position: absolute;
       width: 100%;
       height: 10%;
       z-index: 99;
-      background-color: white;
+      background-color: rgba(179, 221, 242, 1);
+      visibility: hidden;
+      -webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
+      -moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);
+      box-shadow: 0px 5px 10px 0px rgba(0,0,0, .5);
 
       ul{
         height: 100%;
@@ -252,11 +260,10 @@ html, body{
     #data_layers_container{
       width: 100%;
       height: 100%;
-      background-color: rgba(22, 103, 103, 1);
+      //background-color: rgba(22, 103, 103, 1);
       position: absolute;
       #info_card{
         z-index: 2;
-        background: purple;
         visibility: hidden;
         opacity: 0;
 
@@ -273,7 +280,6 @@ html, body{
             color: white;
             position: absolute;
             top: 30%;
-            background-color: blue;
             padding: 2.5%;
           }
           .fa-chevron-left{
@@ -284,52 +290,55 @@ html, body{
           }
         }
         #info_display_container{
-          background-color: pink;
+          background-color: rgba(150, 150, 150, .5);
           position: absolute;
           left: 15%;
+          //top: 10%;
           width: 70%;
           height: 100%;
           z-index: 2;
           overflow-y: auto;
+          border: solid rgba(250, 250, 250, .8);;
+          border-bottom: none;
+          border-top: none;
+          box-sizing: border-box;
 
           .infoOLs{
-            background-color: red;
+            background-color: rgba(250, 250, 250, .5);
             padding: 3.5% 0;
             text-align: center;
-            margin: 5% 0;
+            margin: 10% auto 2%;
+            width: 80%;
 
             .hideThis{
               opacity: 0;
             }
             li{
               display: inline-block;
-              font-size: 4vh;
-              background-color: blue;
+              font-size: 3vh;
               width: 25%;
             }
           }
           #additional_info_container{
-            background-color: blue;
             width: 70%;
             height: 20%;
             margin: 0 auto;
             overflow-y: hidden;
             #desc_container{
-              width: 80%;
+              width: 100%;
               height: 100%;
-              background: black;
-              float: left;
+              background-color: rgba(250, 250, 250, .5);
 
               #aic_description{
-                background-color: purple;
                 padding: 0;
                 display: block;
                 padding: 5%;
-                width: 40%;
+                width: 80%;
                 height: 81%;
                 margin: 0 auto;
                 text-align: center;
                 font-size: 3vh;
+                background-color:  rgba(179, 221, 242, .5);
               }
             }
             #aic_list{
@@ -364,8 +373,37 @@ html, body{
         z-index: 0;
         width: 100%;
         height: 100%;
-        background-color: blue;
+        background-color: rgba(179, 221, 242, 1);
         visibility: hidden;
+
+        #drop_down{
+          padding: 1%;
+          background-color: rgba(150, 150, 150, .5);
+          position: fixed;
+          top: 35%;
+          width: 20%;
+          right: 5%;
+          z-index: 2;
+          -webkit-box-shadow: 0px 5px 27px 5px rgba(0,0,0,0.15);
+          -moz-box-shadow: 0px 5px 27px 5px rgba(0,0,0,0.15);
+          box-shadow: 0px 5px 27px 5px rgba(0,0,0,0.15);
+          border-radius: 2px;
+
+          #type{
+            -webkit-appearance:none;
+            -moz-appearance:none;
+             appearance:none;
+             width: 70%;
+             border-radius: none;
+
+          }
+        }
+        #map{
+          width: 100%;
+          height: 100%;
+          margin: 0 auto;
+        }
+
       }
       #metric_card{
         z-index: 1;
@@ -378,7 +416,10 @@ html, body{
         height: 100%;
         padding: 0;
         position: absolute;
-        background-color: red;
+        background: url('/images/chicago-backdrop.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+
       }
 
     }
