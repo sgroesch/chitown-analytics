@@ -55,6 +55,14 @@ router.get('/api', function(request, response, next) {
   });
 });
 
+router.get('/data', function(request, response, next) {
+  console.log(' root.');
+  crime.find(function(error, data) {
+    if (error) {console.log(error)};
+    console.log(data);
+    response.json(data);
+  });
+});
 
 function returnError (error) {
   console.error('Error: ' + error.message);
@@ -93,6 +101,7 @@ function requestResource (url) {
     req.on("error", returnError);
   });
 };
+
 
 function compareDate (startPeriod, endPeriod, objTime) {
   // console.log(startPeriod + ', ' + endPeriod);
