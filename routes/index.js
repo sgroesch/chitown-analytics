@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var http = require('http');
 var https = require('https');
-var xml2js = require('xml2js');
-var parser = new xml2js.Parser();
+// var xml2js = require('xml2js');
+// var parser = new xml2js.Parser();
 var crime = require('../models/crime')
 // var get_https = require("./get_https.js");
 

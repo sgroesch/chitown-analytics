@@ -7,11 +7,7 @@ function receive(models_array) {
   collection = models_array;
   parseByDate(collection);
   convertToGraphEdible(crime_by_date);
-  // convertToUnix(crime_count_by_date);
-  // sort(crime_count_by_date);
-  setTimeout(function() {
-    drawBasic();
-  }, 3000);
+  drawBasic();
 };
 
 // This method clumps crimes together by date
@@ -37,29 +33,6 @@ function parseByDate(models) {
   else {
     console.log(crime_by_date);
   };
-};
-
-function convertToUnix(models) {
-  for (var i = 0; i < models.length; i++) {
-    models[i][0] = models[i][0].getTime();
-  };
-  // console.table(crime_count_by_date);
-};
-
-function sort(models) {
-  var biggest = models[0][0];
-  var biggest_index = 0;
-  // while (models.length > 0) {
-    for (var i = 0; i < models.length; i++) {
-      if (models[i][0] >= biggest) {
-        biggest = models[i][0];
-        biggest_index = i;
-      };
-    };
-    tempSorted.unshift(models[i]);
-    models.splice(i, 1);
-  // };
-  console.log(models);
 };
 
 // ---------------
