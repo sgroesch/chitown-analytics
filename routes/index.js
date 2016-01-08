@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var http = require('http');
 var https = require('https');
-var xml2js = require('xml2js');
-var parser = new xml2js.Parser();
+// var xml2js = require('xml2js');
+// var parser = new xml2js.Parser();
 var crime = require('../models/crime')
 // var get_https = require("./get_https.js");
 
@@ -15,13 +15,13 @@ router.get('/', function(req, res, next) {
 
 router.post('/api', function(request, response, next) {
   // Requesting from City of Chicago: Crimes.
-  requestResource('https://data.cityofchicago.org/resource/ijzp-q8t2.json?$order=:id');
+  requestResource('https://data.cityofchicago.org/resource/ijzp-q8t2.json?$limit=10000&$order=date&primary_type=HOMICIDE');
 
   crime.find(function(err, crimes) {
     if (err) {
       returnError(err);
     } else {
-      res.json(crimes);
+      response.json(crimes);
     }
   });
 });
@@ -33,7 +33,7 @@ router.post('/api', function(request, response, next) {
 
 router.get('/api', function(request, response, next) {
 
-  var primary = request.param('primary').toUpperCase();
+  var primary = parseToCorrectString(request.param('primary').toUpperCase());
   var startPeriodTime = request.param('start');
   var endPeriodTime = request.param('end');
 
@@ -55,6 +55,14 @@ router.get('/api', function(request, response, next) {
   });
 });
 
+router.get('/data', function(request, response, next) {
+  console.log(' root.');
+  crime.find(function(error, data) {
+    if (error) {console.log(error)};
+    console.log(data);
+    response.json(data);
+  });
+});
 
 function returnError (error) {
   console.error('Error: ' + error.message);
@@ -72,12 +80,15 @@ function requestResource (url) {
       if (response.statusCode === 200) {
         data = JSON.parse(body);
 
+        // ---------------
+        // For parsing XML.
         // var dajson;
         // var tempXML = parser.parseString(data, function (err, result) {
         //   dajson = result;
         //   console.dir(result);
         //   console.log('Done');
         // });
+        // ---------------
 
         data.forEach(function(entry){
           crime.create(entry, function(error, data) {
@@ -94,6 +105,7 @@ function requestResource (url) {
   });
 };
 
+
 function compareDate (startPeriod, endPeriod, objTime) {
   // console.log(startPeriod + ', ' + endPeriod);
   var startString = startPeriod.substr(4,4) + '-' + startPeriod.substr(0,2) + '-' + startPeriod.substr(2,2) + 'T12:00:00';
@@ -109,16 +121,17 @@ function compareDate (startPeriod, endPeriod, objTime) {
   return false;
 };
 
-// var findCaseNumber = function(db, callback) {
-//    var cursor = db.collection('Put Collection Here').find( );
-//    cursor.each(function(err, doc) {
-//       assert.equal(err, null);
-//       if (doc != null) {
-//          console.dir(doc);
-//       } else {
-//          callback();
-//       }
-//    });
-// };
+function parseToCorrectString (something) {
+  var newString = '';
+  for (var i = 0; i < something.length; i++) {
+    if (something[i] == '-') {
+      newString = newString + ' ';
+    }
+    else {
+      newString = newString + something[i];
+    };
+  };
+  return newString;
+};
 
 module.exports = router;

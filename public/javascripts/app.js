@@ -13,7 +13,8 @@ Backbone.Model.idAttribute = "_id";
 
 app.Collection = Backbone.Collection.extend({
   model: app.Model,
-  initialize: function(apiUrl) {
+  initialize: function(apiUrl, graphTitle) {
+    this.title = graphTitle;
     this.url = apiUrl;
     var self = this;
     console.log('Crimes have been committed!');
@@ -32,13 +33,6 @@ app.Collection = Backbone.Collection.extend({
     this.fetch();
   },
 
-// ---------------
-// Need to connect this to form input via replacement of hardcoded params with
-// form input values!!! This url will then be reusable by maps, also.
-// ---------------
-
-  // url: '/api?primary=narcotics&start=09012013&end=01012014'
-
 });
 
 app.CollectionView = Backbone.View.extend({
@@ -50,49 +44,73 @@ app.CollectionView = Backbone.View.extend({
     console.log('CollectionView render go.');
     var models = this.collection.models;
 
-    // Replace element name! ***
-    // var collxnview = document.getElementById('value');
-    //
-    // collxnview.innerHTML = "";
+    var collxnTitleView = document.getElementById('chart_title');
+    collxnTitleView.innerHTML = "";
 
-    // var tempMdl = {
-    //   Name: this.model.attributes.Name,
-    //   Ingredients: this.model.attributes.Ingredients,
-    //   Toppings: this.model.attributes.Toppings
-    // };
+    var title_gief = {
+      graph_title: this.collection.title
+    };
     // // console.log(tempMdl);
-    // var newTemplate = "<tr><td><%= Name %></td><td><%= Ingredients %></td><td><%= Toppings %></td><td><button class='delete'>X</button></td></tr>";
-    // var nct = _.template(newTemplate);
+    var newTemplate = "<h5 style='background-color: #FFFFFF;'><%= graph_title %></h5>";
+    var nct = _.template(newTemplate);
     // var collxnrow = document.getElementById('value');
-    // collxnrow.innerHTML += nct(tempMdl);
+    collxnTitleView.innerHTML = nct(title_gief);
 
     receive(models);
   }
 });
 
+function timeLord (something) {
+  var newStageOne = '';
+  for (var i = 0; i < something.length; i++) {
+    if (something[i] == '-') {
+      newStageOne = newStageOne + '';
+    }
+    else {
+      newStageOne = newStageOne + something[i];
+    };
+  };
+  var newStageTwo = newStageOne.substr(4,2) + newStageOne.substr(6,2) + newStageOne.substr(0,4);
+  return newStageTwo;
+};
+
+function parseToUrlString (something) {
+  var newString = '';
+  for (var i = 0; i < something.length; i++) {
+    if (something[i] == ' ') {
+      newString = newString + '-';
+    }
+    else {
+      newString = newString + something[i];
+    };
+  };
+  return newString;
+};
+
 $(document).ready(function () {
   console.log('Crimes!');
 
-  // $("#start_date").datepicker();
 
-  $("#start_date").datepicker({
-    dateFormat: "mmddyy"
-  });
-  $("#end_date").datepicker({
-    dateFormat: "mmddyy"
-  });
+  var pType = document.getElementById("primary_type");
+  var sDate = document.getElementById('start_date');
+  var eDate = document.getElementById('end_date');
 
-  var selected_pType = '';
-  document.getElementById("primary_type").onchange = function(){
-    selected_pType = this.value;
-  };
-
-  $('#submit').on('click', function () {
-    var selected_sDate = $("#start_date").val();
-    var selected_eDate = $("#end_date").val();
+  var submit = document.getElementById('submit');
+  submit.onclick = function () {
+    var selected_sDate = parseToUrlString(timeLord(sDate.value));
+    var selected_eDate = parseToUrlString(timeLord(eDate.value));
+    var selected_pType = parseToUrlString(pType.value);
     var url = '/api?primary=' + selected_pType + '&start=' + selected_sDate + '&end=' + selected_eDate;
     console.log(url);
 
-    active.collection = new app.Collection(url);
-  });
+    active.collection = new app.Collection(url, selected_pType.toUpperCase());
+  };
+
+  var clear = document.getElementById('clear');
+  clear.onclick = function () {
+    var chart_box = document.getElementById('container');
+    while (chart_box.firstChild) {
+      chart_box.removeChild(chart_box.firstChild);
+    }
+  };
 });

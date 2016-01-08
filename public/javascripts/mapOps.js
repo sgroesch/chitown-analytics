@@ -9,7 +9,7 @@ $(document).ready(function(){
   console.log('jquery is ready');
 
   $.ajax({
-    url:'https://data.cityofchicago.org/resource/ijzp-q8t2.json',
+    url:'/data',
     type:'get',
     success:function(data){
 
@@ -96,7 +96,7 @@ function redrawMap(){
 var arr=[];
 var arrDes=[];
 $.ajax({
-url:'https://data.cityofchicago.org/resource/ijzp-q8t2.json',
+url:'/data',
 type:'get',
 success:function(data){
   // console.dir(data);
