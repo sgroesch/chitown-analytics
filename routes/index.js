@@ -33,7 +33,7 @@ router.post('/api', function(request, response, next) {
 
 router.get('/api', function(request, response, next) {
 
-  var primary = request.param('primary').toUpperCase();
+  var primary = parseToCorrectString(request.param('primary').toUpperCase());
   var startPeriodTime = request.param('start');
   var endPeriodTime = request.param('end');
 
@@ -80,12 +80,15 @@ function requestResource (url) {
       if (response.statusCode === 200) {
         data = JSON.parse(body);
 
+        // ---------------
+        // For parsing XML.
         // var dajson;
         // var tempXML = parser.parseString(data, function (err, result) {
         //   dajson = result;
         //   console.dir(result);
         //   console.log('Done');
         // });
+        // ---------------
 
         data.forEach(function(entry){
           crime.create(entry, function(error, data) {
@@ -118,16 +121,17 @@ function compareDate (startPeriod, endPeriod, objTime) {
   return false;
 };
 
-// var findCaseNumber = function(db, callback) {
-//    var cursor = db.collection('Put Collection Here').find( );
-//    cursor.each(function(err, doc) {
-//       assert.equal(err, null);
-//       if (doc != null) {
-//          console.dir(doc);
-//       } else {
-//          callback();
-//       }
-//    });
-// };
+function parseToCorrectString (something) {
+  var newString = '';
+  for (var i = 0; i < something.length; i++) {
+    if (something[i] == '-') {
+      newString = newString + ' ';
+    }
+    else {
+      newString = newString + something[i];
+    };
+  };
+  return newString;
+};
 
 module.exports = router;

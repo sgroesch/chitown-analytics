@@ -33,13 +33,6 @@ app.Collection = Backbone.Collection.extend({
     this.fetch();
   },
 
-// ---------------
-// Need to connect this to form input via replacement of hardcoded params with
-// form input values!!! This url will then be reusable by maps, also.
-// ---------------
-
-  // url: '/api?primary=narcotics&start=09012013&end=01012014'
-
 });
 
 app.CollectionView = Backbone.View.extend({
@@ -68,7 +61,7 @@ app.CollectionView = Backbone.View.extend({
 });
 
 function timeLord (something) {
-  newStageOne = '';
+  var newStageOne = '';
   for (var i = 0; i < something.length; i++) {
     if (something[i] == '-') {
       newStageOne = newStageOne + '';
@@ -81,25 +74,43 @@ function timeLord (something) {
   return newStageTwo;
 };
 
+function parseToUrlString (something) {
+  var newString = '';
+  for (var i = 0; i < something.length; i++) {
+    if (something[i] == ' ') {
+      newString = newString + '-';
+    }
+    else {
+      newString = newString + something[i];
+    };
+  };
+  return newString;
+};
+
 $(document).ready(function () {
   console.log('Crimes!');
 
 
   var pType = document.getElementById("primary_type");
-
   var sDate = document.getElementById('start_date');
   var eDate = document.getElementById('end_date');
 
   var submit = document.getElementById('submit');
-
   submit.onclick = function () {
-
-    var selected_sDate = timeLord(sDate.value);
-    var selected_eDate = timeLord(eDate.value);
-    var selected_pType = pType.value;
+    var selected_sDate = parseToUrlString(timeLord(sDate.value));
+    var selected_eDate = parseToUrlString(timeLord(eDate.value));
+    var selected_pType = parseToUrlString(pType.value);
     var url = '/api?primary=' + selected_pType + '&start=' + selected_sDate + '&end=' + selected_eDate;
     console.log(url);
 
     active.collection = new app.Collection(url, selected_pType.toUpperCase());
+  };
+
+  var clear = document.getElementById('clear');
+  clear.onclick = function () {
+    var chart_box = document.getElementById('container');
+    while (chart_box.firstChild) {
+      chart_box.removeChild(chart_box.firstChild);
+    }
   };
 });
