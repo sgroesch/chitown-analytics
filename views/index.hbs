@@ -1,7 +1,7 @@
 <!-- Here lies the landing page  -->
 <div id="landing_page_content">
   <div id="lp_content">
-    <h1>Big Data: You're guide to Chicago's Crime Data</h1>
+    <h1>Big Data: Your guide to Chicago's Crimes</h1>
     <hr>
     <p class="lpInfo">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lobortis tincidunt posuere. Nam sagittis dui in justo iaculis, vitae faucibus est bibendum. Nullam laoreet nisl iaculis, luctus justo sed, tempor lorem. Mauris euismod neque a urna pulvinar, quis molestie justo hendrerit. Donec at arcu mi. Etiam ut metus commodo enim congue volutpat a eu mauris. Mauris congue vestibulum tortor, eget egestas sem finibus vel. Vestibulum consequat sapien ipsum, eget facilisis est accumsan ac. Curabitur consequat lectus eget purus dictum, ut cursus risus pulvinar.
     </p>
@@ -9,7 +9,6 @@
       <li><a>Crime Info</a></li>
       <li><a>Metrics</a></li>
       <li><a>Web Data</a></li>
-      <li><a>Data List</a></li>
     </ul>
     <p class="lpInfo">
       Pellentesque maximus, felis et malesuada faucibus, arcu massa imperdiet lacus, vel sodales est elit sodales nisi. Donec et pulvinar nunc. Aliquam non rutrum purus, nec convallis massa. Quisque nisi ante, lacinia id urna vitae, finibus sollicitudin ex. Nulla egestas varius hendrerit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas volutpat semper felis vel pulvinar. Ut non gravida est.
@@ -52,9 +51,9 @@
   </div>
   <div id="data_layers_container">
     <div id="info_card" class="dataLayers">
-      <div id="aLeft" class="infoArrows">
+      <!-- <div id="aLeft" class="infoArrows">
         <span><i class="fa fa-chevron-left"></i></span>
-      </div>
+      </div> -->
       <div id="info_display_container">
         <ol class="noliStyle infoOLs">
           <li class="flL">Case Num</li>
@@ -72,19 +71,19 @@
               box-sizing: border-box;
             </span>
           </div>
-          <ol id="aic_list" class="noliStyle">
+          <!-- <ol id="aic_list" class="noliStyle">
             <li><span>add</span></li>
             <li><span>more</span></li>
             <li><span>stuff</span></li>
-          </ol>
+          </ol> -->
         </div>
       </div>
-      <div class="infoArrows">
+      <!-- <div class="infoArrows">
         <span><i class="fa fa-chevron-right"></i></span>
-      </div>
+      </div> -->
     </div>
     <div id="map_card" class="dataLayers">
-      <div id=drop_down>
+      <div id="drop_down">
           <select name="type" id="type">
             <!-- <option value="all">ALL TYPES</option> -->
           </select>
@@ -100,7 +99,6 @@
     </div>
     <div id="metric_card" class="dataLayers">
       <div id="graph_form">
-        <p>
           <h5>Offense</h5>
           <select id="primary_type">
             <option value="assault">Assault</option>
@@ -116,8 +114,6 @@
             <option value="robbery">Robbery</option>
             <option value="theft">Theft</option>
           </select>
-        </p>
-        <p>
           <h5>Period Start Date</h5>
           <input type="date" id="start_date">
         </p>
