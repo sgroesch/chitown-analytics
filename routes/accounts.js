@@ -9,7 +9,7 @@ passport.serializeUser(Models.Account.serializeUser());
 passport.deserializeUser(Models.Account.deserializeUser());
 
 router.get('/', function(req, res, next) {
-  res.render('account');
+  res.render('account', { user: req.user });
 });
 
 router.get('/savesearch', function(req, res, next) {
@@ -27,7 +27,6 @@ router.post('/register', function(req, res){
   var checkEmail = checkLength(req.body.email, 50);
   var checkPassword = checkLength(req.body.password, 16);
   if (checkUsername == false || checkEmail == false || checkPassword == false) {
-    console.log('Worked');
     return res.redirect('/');
   }
   Models.Account.register(new Models.Account({
