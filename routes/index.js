@@ -15,13 +15,13 @@ router.get('/', function(req, res, next) {
 
 router.post('/api', function(request, response, next) {
   // Requesting from City of Chicago: Crimes.
-  requestResource('https://data.cityofchicago.org/resource/ijzp-q8t2.json?$order=:id');
+  requestResource('https://data.cityofchicago.org/resource/ijzp-q8t2.json?$limit=10000&$order=date&primary_type=HOMICIDE');
 
   crime.find(function(err, crimes) {
     if (err) {
       returnError(err);
     } else {
-      res.json(crimes);
+      response.json(crimes);
     }
   });
 });

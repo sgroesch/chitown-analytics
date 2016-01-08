@@ -113,49 +113,54 @@ function convertToGraphEdible(models) {
 function draw () {
     $('#container').highcharts({
         chart: {
-            type: 'spline'
+            type: 'column'
         },
         title: {
-            text: 'Crime in Chicago'
+            text: 'Homicides in Chicago'
         },
         subtitle: {
-            text: 'Uh oh...'
+            text: 'Weekly Tragedy'
         },
         xAxis: {
             type: 'datetime',
-            dateTimeLabelFormats: { // don't display the dummy year
-                month: '%e. %b',
-                year: '%b'
+            dateTimeLabelFormats: {
+                day: '%e. %b'
             },
-            title: {
-                text: 'Date'
-            }
-        },
-        yAxis: {
-            title: {
-                text: 'Incidents per Day'
-            },
-            min: 0
-        },
-        tooltip: {
-            headerFormat: '<b>{series.name}</b><br>',
-            pointFormat: '{point.x:%e. %b}: {point.y:.2f} incidents'
-        },
-
-        plotOptions: {
-            spline: {
-                marker: {
-                    enabled: true
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
                 }
             }
         },
-
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Homicide Deaths'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: 'Homicide: <b>{point.y:.1f} incidents</b>'
+        },
         series: [{
-            name: 'Incidents during this Period',
-            // Define the data points. All series have a dummy year
-            // of 1970/71 in order to be compared on the same x axis. Note
-            // that in JavaScript, months start at 0 for January, 1 for February etc.
-            data: tempSorted
+            name: 'Population',
+            data: tempSorted,
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#FFFFFF',
+                align: 'right',
+                format: '{point.y:.1f}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
         }]
     });
 };
