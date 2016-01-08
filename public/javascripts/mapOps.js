@@ -14,6 +14,7 @@ $(document).ready(function(){
       $('#endDate').val(parseDateString(date))
       console.dir(data);
       fillCrimeSelector('#type','primary_type',data);
+      getIUCR($('#type').val());
       for(var crime in data){
          if(data[crime].primary_type==$('option:selected').val()){
            addMarker(data[crime]);
