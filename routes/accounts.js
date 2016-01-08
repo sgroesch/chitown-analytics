@@ -8,6 +8,14 @@ passport.use(new LocalStrategy(Models.Account.authenticate()));
 passport.serializeUser(Models.Account.serializeUser());
 passport.deserializeUser(Models.Account.deserializeUser());
 
+router.get('/', function(req, res, next) {
+  res.render('account');
+});
+
+router.get('/savesearch', function(req, res, next) {
+  res.render('savesearch');
+});
+
 router.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
   function(req, res) {
     res.redirect('/');
@@ -18,10 +26,10 @@ router.post('/register', function(req, res){
   var checkUsername = checkLength(req.body.username, 16);
   var checkEmail = checkLength(req.body.email, 50);
   var checkPassword = checkLength(req.body.password, 16);
-  // if (checkUsername == false || checkEmail == false || checkPassword == false) {
-  //   console.log('Worked');
-  //   res.redirect('/');
-  // }
+  if (checkUsername == false || checkEmail == false || checkPassword == false) {
+    console.log('Worked');
+    return res.redirect('/');
+  }
   Models.Account.register(new Models.Account({
       username: req.body.username,
       email: req.body.email
@@ -47,10 +55,24 @@ var checkLength = function(inputToCheck, maxLength) {
   }
 };
 
-var checkForEmail = function() {
-  // Checks if email is registered already
-};
-
+router.post('/savemap', function(req, res){
+  var mapDetails = {
+    primarycrime: $('#hiddenPrimaryCrime').val(),
+    subcrime: $('#hiddenSubcrime').val(),
+    timeStart: $('#hiddenTimeStart').val(),
+    timeEnd: $('#hiddenTimeEnd').val()
+  }
+  Models.Account.findOneAndUpdate({
+      'username': user.username
+    },
+    {
+    }, function(err, account) {
+      if (err) console.log(err);
+      account.map.push(mapDetails);
+      account.save();
+    }
+  )
+});
 
 router.get('/logout', function(req, res){
   req.logout();
