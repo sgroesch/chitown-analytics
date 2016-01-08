@@ -1,5 +1,6 @@
+var check;
 var cc;
-var ActiveTracker;
+
 window.onload = function(){
 
   //Beginning of user form container animations
@@ -25,13 +26,13 @@ window.onload = function(){
 
   $('#logocon').on('click', function(){
     var styleChange = {
-      margin: "1% 0 15% 0",
+      margin: "1% 0 1.5% 0",
       padding: "2% 0",
-      fontSize: "5vh"
+      fontSize: "3vh"
     };
     var styleRevert = {
-      margin: '10% 0 0 0',
-      padding: '15% 0',
+      margin: '5% 0 0 0',
+      padding: '5% 0',
       fontSize: '10vh'
     };
     if(cc == false){
@@ -52,8 +53,40 @@ window.onload = function(){
 
   //end of menu animation
 
+  //main nav process
+  var slideWidth = {
+    width: "100%"
+  }
+  var slideBack = {
+    width: "0"
+  }
+  $('#home_page').on('click', function(){
+    $('#card_nav').css({
+      visibility: 'hidden'
+    });
+    $('#data_layers_page').animate(slideBack, 500, function(){
+      $('#landing_page_content').animate(slideWidth, 500, function(){
+        $('#lp_title').css({
+          visibility: 'visible'
+        });
+      });
+    });
+  });
+  $('#data_page').on('click', function(){
+    $('#landing_page_content').animate(slideBack, 500, function(){
+      $('#lp_title').css({
+        visibility: 'hidden'
+      });
+      $('#data_layers_page').animate(slideWidth, 500, function(){
+        $('#card_nav').css({
+          visibility: 'visible'
+        })
+      });
+    });
+  });
+
+  //end of nav process
   //card nav animation
-  var ActiveTracker = 0;
 
   var ActiveCard = {
     opacity: '1'
@@ -85,6 +118,8 @@ window.onload = function(){
     hideAllAndShowOne('#metric_card');
     $('#metric_card').animate(ActiveCard, 500, function(){});
   });
+
+  //end of card nav
 
 
 }
