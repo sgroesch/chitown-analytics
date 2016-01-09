@@ -5,10 +5,13 @@ var tempSorted = [];
 
 function receive(models_array) {
   collection = models_array;
+  // Clumps database results by date.
   parseByDate(collection);
+  // Calculates number of incidents per date.
   convertToGraphEdible(crime_by_date);
+  // Sorts incidents per date by date.
   tempSorted = sortEdible(crime_count_by_date);
-  // drawBasic();
+  // Draws the graph.
   draw();
 };
 
@@ -37,6 +40,7 @@ function parseByDate(models) {
   };
 };
 
+// This method sorts clumps of crime by date. Did not actually use this.
 function sortClumps (clumped) {
   var bigArray = [];
 
@@ -53,6 +57,13 @@ function sortClumps (clumped) {
     clumped.splice(bigIndex, 1);
   };
   return bigArray;
+};
+
+function convertToGraphEdible(models) {
+  for (var i = 0; i < models.length; i++) {
+    crime_count_by_date.push([models[i][0][0].getTime(), models[i].length]);
+  };
+  // console.log(crime_count_by_date);
 };
 
 function sortEdible (yumyums) {
@@ -74,52 +85,17 @@ function sortEdible (yumyums) {
   return bigArray;
 };
 
-// ---------------
-// Proof of concept to convert data to graph readable format.
-// ---------------
-
-function convertToGraphEdible(models) {
-  for (var i = 0; i < models.length; i++) {
-    crime_count_by_date.push([models[i][0][0].getTime(), models[i].length]);
-  };
-  // console.log(crime_count_by_date);
-};
-
-// google.charts.load('current', {packages: ['corechart', 'line']});
-// function drawBasic() {
-//
-//   var data = new google.visualization.DataTable();
-//   data.addColumn('date', 'X');
-//   data.addColumn('number', 'Incidents');
-//
-//   for (var i = 0; i < tempSorted.length; i++) {
-//     data.addRow([tempSorted[i][0], tempSorted[i][1]]);
-//   }
-//
-//   var options = {
-//     hAxis: {
-//       title: 'Time'
-//     },
-//     vAxis: {
-//       title: 'Incidents'
-//     }
-//   };
-//
-//   var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-//
-//   chart.draw(data, options);
-// }
-
+// Used Highcharts for graphing.
 function draw () {
     $('#container').highcharts({
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Homicides in Chicago'
+            text: 'Crime in Chicago'
         },
         subtitle: {
-            text: 'Weekly Tragedy'
+            text: 'For shame, Chicago!'
         },
         xAxis: {
             type: 'datetime',
@@ -137,14 +113,14 @@ function draw () {
         yAxis: {
             min: 0,
             title: {
-                text: 'Homicide Deaths'
+                text: 'Number of Incidents'
             }
         },
         legend: {
             enabled: false
         },
         tooltip: {
-            pointFormat: 'Homicide: <b>{point.y:.1f} incidents</b>'
+            pointFormat: 'Crime: <b>{point.y:.1f} incidents</b>'
         },
         series: [{
             name: 'Population',
