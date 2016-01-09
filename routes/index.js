@@ -96,16 +96,6 @@ function requestResource (url) {
       if (response.statusCode === 200) {
         data = JSON.parse(body);
 
-        // ---------------
-        // For parsing XML.
-        // var dajson;
-        // var tempXML = parser.parseString(data, function (err, result) {
-        //   dajson = result;
-        //   console.dir(result);
-        //   console.log('Done');
-        // });
-        // ---------------
-
         data.forEach(function(entry){
           crime.create(entry, function(error, data) {
             if (error) {console.log(error)};
