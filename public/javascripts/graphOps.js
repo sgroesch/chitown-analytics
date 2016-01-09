@@ -86,57 +86,116 @@ function sortEdible (yumyums) {
 };
 
 // Used Highcharts for graphing.
+// function draw () {
+//     $('#container').highcharts({
+//         chart: {
+//             type: 'column'
+//         },
+//         title: {
+//             text: 'Crime in Chicago'
+//         },
+//         subtitle: {
+//             text: 'For shame, Chicago!'
+//         },
+//         xAxis: {
+//             type: 'datetime',
+//             dateTimeLabelFormats: {
+//                 day: '%e. %b'
+//             },
+//             labels: {
+//                 rotation: -45,
+//                 style: {
+//                     fontSize: '13px',
+//                     fontFamily: 'Verdana, sans-serif'
+//                 }
+//             }
+//         },
+//         yAxis: {
+//             min: 0,
+//             title: {
+//                 text: 'Number of Incidents'
+//             }
+//         },
+//         legend: {
+//             enabled: false
+//         },
+//         tooltip: {
+//             pointFormat: 'Crime: <b>{point.y:.1f} incidents</b>'
+//         },
+//         series: [{
+//             name: 'Population',
+//             data: tempSorted,
+//             dataLabels: {
+//                 enabled: true,
+//                 rotation: -90,
+//                 color: '#FFFFFF',
+//                 align: 'right',
+//                 format: '{point.y:.1f}', // one decimal
+//                 y: 10, // 10 pixels down from the top
+//                 style: {
+//                     fontSize: '13px',
+//                     fontFamily: 'Verdana, sans-serif'
+//                 }
+//             }
+//         }]
+//     });
+// };
+
 function draw () {
-    $('#container').highcharts({
+
+    $('#chart_div').highcharts({
         chart: {
-            type: 'column'
+            zoomType: 'x'
         },
         title: {
-            text: 'Crime in Chicago'
+            text: 'Crime Incidences of This Type over the Given Period'
         },
         subtitle: {
-            text: 'For shame, Chicago!'
+            text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
         },
         xAxis: {
-            type: 'datetime',
-            dateTimeLabelFormats: {
-                day: '%e. %b'
-            },
-            labels: {
-                rotation: -45,
-                style: {
-                    fontSize: '13px',
-                    fontFamily: 'Verdana, sans-serif'
-                }
-            }
+            type: 'datetime'
         },
         yAxis: {
-            min: 0,
             title: {
-                text: 'Number of Incidents'
+                text: 'Incidents'
             }
         },
         legend: {
             enabled: false
         },
-        tooltip: {
-            pointFormat: 'Crime: <b>{point.y:.1f} incidents</b>'
-        },
-        series: [{
-            name: 'Population',
-            data: tempSorted,
-            dataLabels: {
-                enabled: true,
-                rotation: -90,
-                color: '#FFFFFF',
-                align: 'right',
-                format: '{point.y:.1f}', // one decimal
-                y: 10, // 10 pixels down from the top
-                style: {
-                    fontSize: '13px',
-                    fontFamily: 'Verdana, sans-serif'
-                }
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
             }
+        },
+
+        series: [{
+            type: 'area',
+            name: 'Crime over Time',
+            data: tempSorted
         }]
     });
 };
