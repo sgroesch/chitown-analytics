@@ -120,7 +120,7 @@ $(document).ready(function () {
 
   var clear = document.getElementById('clear');
   clear.onclick = function () {
-    var chart_box = document.getElementById('container');
+    var chart_box = document.getElementById('chart_div');
     while (chart_box.firstChild) {
       chart_box.removeChild(chart_box.firstChild);
     }

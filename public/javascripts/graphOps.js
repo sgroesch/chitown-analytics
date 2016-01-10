@@ -85,62 +85,6 @@ function sortEdible (yumyums) {
   return bigArray;
 };
 
-// Used Highcharts for graphing.
-// function draw () {
-//     $('#container').highcharts({
-//         chart: {
-//             type: 'column'
-//         },
-//         title: {
-//             text: 'Crime in Chicago'
-//         },
-//         subtitle: {
-//             text: 'For shame, Chicago!'
-//         },
-//         xAxis: {
-//             type: 'datetime',
-//             dateTimeLabelFormats: {
-//                 day: '%e. %b'
-//             },
-//             labels: {
-//                 rotation: -45,
-//                 style: {
-//                     fontSize: '13px',
-//                     fontFamily: 'Verdana, sans-serif'
-//                 }
-//             }
-//         },
-//         yAxis: {
-//             min: 0,
-//             title: {
-//                 text: 'Number of Incidents'
-//             }
-//         },
-//         legend: {
-//             enabled: false
-//         },
-//         tooltip: {
-//             pointFormat: 'Crime: <b>{point.y:.1f} incidents</b>'
-//         },
-//         series: [{
-//             name: 'Population',
-//             data: tempSorted,
-//             dataLabels: {
-//                 enabled: true,
-//                 rotation: -90,
-//                 color: '#FFFFFF',
-//                 align: 'right',
-//                 format: '{point.y:.1f}', // one decimal
-//                 y: 10, // 10 pixels down from the top
-//                 style: {
-//                     fontSize: '13px',
-//                     fontFamily: 'Verdana, sans-serif'
-//                 }
-//             }
-//         }]
-//     });
-// };
-
 function draw () {
 
     $('#chart_div').highcharts({
@@ -194,7 +138,7 @@ function draw () {
 
         series: [{
             type: 'area',
-            name: 'Crime over Time',
+            name: 'Incidents',
             data: tempSorted
         }]
     });
