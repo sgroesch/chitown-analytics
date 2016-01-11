@@ -71,7 +71,6 @@ router.post('/savemap', function(req, res){
       account.save();
     }
   )
-  res.redirect('/');
 });
 
 router.get('/logout', function(req, res){
