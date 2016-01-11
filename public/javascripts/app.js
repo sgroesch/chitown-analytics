@@ -46,19 +46,20 @@ app.CollectionView = Backbone.View.extend({
 
     var collxnTitleView = document.getElementById('chart_title');
     collxnTitleView.innerHTML = "";
-
-    var title_gief = {
-      graph_title: this.collection.title
-    };
-    // // console.log(tempMdl);
+    var title_gief = { graph_title: this.collection.title };
     var newTemplate = "<h5 style='background-color: #FFFFFF;'><%= graph_title %></h5>";
     var nct = _.template(newTemplate);
-    // var collxnrow = document.getElementById('value');
     collxnTitleView.innerHTML = nct(title_gief);
 
     receive(models);
   }
 });
+
+// ---------------
+// Times have the dashes removed before joining the url. I wrote this after my
+// url parser in the routes. I suppose I could take out both this function and the
+// dash injecting code in the other one, but it's just fine.
+// ---------------
 
 function timeLord (something) {
   var newStageOne = '';
@@ -73,6 +74,10 @@ function timeLord (something) {
   var newStageTwo = newStageOne.substr(4,2) + newStageOne.substr(6,2) + newStageOne.substr(0,4);
   return newStageTwo;
 };
+
+// ---------------
+// Takes out spaces and puts dashes, because spaces are taboo.
+// ---------------
 
 function parseToUrlString (something) {
   var newString = '';
@@ -90,12 +95,13 @@ function parseToUrlString (something) {
 $(document).ready(function () {
   console.log('Crimes!');
 
-
+  // Elements to get values from and to watch.
   var pType = document.getElementById("primary_type");
   var sDate = document.getElementById('start_date');
   var eDate = document.getElementById('end_date');
-
   var submit = document.getElementById('submit');
+
+  // Backbone collection created by search parameters on submit.
   submit.onclick = function () {
     var selected_sDate = parseToUrlString(timeLord(sDate.value));
     var selected_eDate = parseToUrlString(timeLord(eDate.value));
@@ -106,9 +112,15 @@ $(document).ready(function () {
     active.collection = new app.Collection(url, selected_pType.toUpperCase());
   };
 
+  // ---------------
+  // Removes the graph from view. For some reason, the graph values persist when
+  // you try to graph something else, so everything just piles on to the same
+  // graph. Still need to find a solution to this problem.
+  // ---------------
+
   var clear = document.getElementById('clear');
   clear.onclick = function () {
-    var chart_box = document.getElementById('container');
+    var chart_box = document.getElementById('chart_div');
     while (chart_box.firstChild) {
       chart_box.removeChild(chart_box.firstChild);
     }

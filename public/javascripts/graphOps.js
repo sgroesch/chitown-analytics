@@ -5,10 +5,13 @@ var tempSorted = [];
 
 function receive(models_array) {
   collection = models_array;
+  // Clumps database results by date.
   parseByDate(collection);
+  // Calculates number of incidents per date.
   convertToGraphEdible(crime_by_date);
+  // Sorts incidents per date by date.
   tempSorted = sortEdible(crime_count_by_date);
-  // drawBasic();
+  // Draws the graph.
   draw();
 };
 
@@ -37,6 +40,7 @@ function parseByDate(models) {
   };
 };
 
+// This method sorts clumps of crime by date. Did not actually use this.
 function sortClumps (clumped) {
   var bigArray = [];
 
@@ -53,6 +57,13 @@ function sortClumps (clumped) {
     clumped.splice(bigIndex, 1);
   };
   return bigArray;
+};
+
+function convertToGraphEdible(models) {
+  for (var i = 0; i < models.length; i++) {
+    crime_count_by_date.push([models[i][0][0].getTime(), models[i].length]);
+  };
+  // console.log(crime_count_by_date);
 };
 
 function sortEdible (yumyums) {
@@ -74,93 +85,61 @@ function sortEdible (yumyums) {
   return bigArray;
 };
 
-// ---------------
-// Proof of concept to convert data to graph readable format.
-// ---------------
-
-function convertToGraphEdible(models) {
-  for (var i = 0; i < models.length; i++) {
-    crime_count_by_date.push([models[i][0][0].getTime(), models[i].length]);
-  };
-  // console.log(crime_count_by_date);
-};
-
-// google.charts.load('current', {packages: ['corechart', 'line']});
-// function drawBasic() {
-//
-//   var data = new google.visualization.DataTable();
-//   data.addColumn('date', 'X');
-//   data.addColumn('number', 'Incidents');
-//
-//   for (var i = 0; i < tempSorted.length; i++) {
-//     data.addRow([tempSorted[i][0], tempSorted[i][1]]);
-//   }
-//
-//   var options = {
-//     hAxis: {
-//       title: 'Time'
-//     },
-//     vAxis: {
-//       title: 'Incidents'
-//     }
-//   };
-//
-//   var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-//
-//   chart.draw(data, options);
-// }
-
 function draw () {
-    $('#container').highcharts({
+
+    $('#chart_div').highcharts({
         chart: {
-            type: 'column'
+            zoomType: 'x'
         },
         title: {
-            text: 'Homicides in Chicago'
+            text: 'Crime Incidences of This Type over the Given Period'
         },
         subtitle: {
-            text: 'Weekly Tragedy'
+            text: document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
         },
         xAxis: {
-            type: 'datetime',
-            dateTimeLabelFormats: {
-                day: '%e. %b'
-            },
-            labels: {
-                rotation: -45,
-                style: {
-                    fontSize: '13px',
-                    fontFamily: 'Verdana, sans-serif'
-                }
-            }
+            type: 'datetime'
         },
         yAxis: {
-            min: 0,
             title: {
-                text: 'Homicide Deaths'
+                text: 'Incidents'
             }
         },
         legend: {
             enabled: false
         },
-        tooltip: {
-            pointFormat: 'Homicide: <b>{point.y:.1f} incidents</b>'
-        },
-        series: [{
-            name: 'Population',
-            data: tempSorted,
-            dataLabels: {
-                enabled: true,
-                rotation: -90,
-                color: '#FFFFFF',
-                align: 'right',
-                format: '{point.y:.1f}', // one decimal
-                y: 10, // 10 pixels down from the top
-                style: {
-                    fontSize: '13px',
-                    fontFamily: 'Verdana, sans-serif'
-                }
+        plotOptions: {
+            area: {
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                },
+                marker: {
+                    radius: 2
+                },
+                lineWidth: 1,
+                states: {
+                    hover: {
+                        lineWidth: 1
+                    }
+                },
+                threshold: null
             }
+        },
+
+        series: [{
+            type: 'area',
+            name: 'Incidents',
+            data: tempSorted
         }]
     });
 };

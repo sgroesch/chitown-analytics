@@ -2,16 +2,19 @@ var express = require('express');
 var router = express.Router();
 var http = require('http');
 var https = require('https');
-// var xml2js = require('xml2js');
-// var parser = new xml2js.Parser();
 var crime = require('../models/crime')
-// var get_https = require("./get_https.js");
 
+// ---------------
+// Home page.
+// ---------------
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { user: req.user });
 });
+
+// ---------------
+// Post route used to get data from Chicago.
+// ---------------
 
 router.post('/api', function(request, response, next) {
   // Requesting from City of Chicago: Crimes.
@@ -28,7 +31,8 @@ router.post('/api', function(request, response, next) {
 
 
 // ---------------
-// To call: /narcotics?start=mmddyy&end=mmddyy
+// Query API by primary type and date.
+// To call: /api?primary=homicide&start=mmddyy&end=mmddyy
 // ---------------
 
 router.get('/api', function(request, response, next) {
@@ -55,6 +59,10 @@ router.get('/api', function(request, response, next) {
   });
 });
 
+// ---------------
+// Returns everything in the database.
+// ---------------
+
 router.get('/data', function(request, response, next) {
   console.log(' root.');
   crime.find(function(error, data) {
@@ -64,9 +72,17 @@ router.get('/data', function(request, response, next) {
   });
 });
 
+// ---------------
+// Error message.
+// ---------------
+
 function returnError (error) {
   console.error('Error: ' + error.message);
 };
+
+// ---------------
+// This function does the actual call to City of Chicago data.
+// ---------------
 
 function requestResource (url) {
   var data = "";
@@ -79,16 +95,6 @@ function requestResource (url) {
     response.on('end', function () {
       if (response.statusCode === 200) {
         data = JSON.parse(body);
-
-        // ---------------
-        // For parsing XML.
-        // var dajson;
-        // var tempXML = parser.parseString(data, function (err, result) {
-        //   dajson = result;
-        //   console.dir(result);
-        //   console.log('Done');
-        // });
-        // ---------------
 
         data.forEach(function(entry){
           crime.create(entry, function(error, data) {
@@ -105,21 +111,35 @@ function requestResource (url) {
   });
 };
 
+// ---------------
+// This function parses the part of the url that contains start and end dates
+// and compares database entries against those parameters.
+// ---------------
 
 function compareDate (startPeriod, endPeriod, objTime) {
-  // console.log(startPeriod + ', ' + endPeriod);
+  // ---------------
+  // Date strings are sliced up and injected with dashes and generic time
+  // for formatting to create date objects. Without adding 'T12:00:00,''
+  // formatted CST dates are assumed to be UTC, which would be converted back to
+  // CST dates for the day after.
+  // ---------------
   var startString = startPeriod.substr(4,4) + '-' + startPeriod.substr(0,2) + '-' + startPeriod.substr(2,2) + 'T12:00:00';
   var endString = endPeriod.substr(4,4) + '\-' + endPeriod.substr(0,2) + '\-' + endPeriod.substr(2,2) + 'T12:00:00';
-  // console.log(startString + ', ' + endString);
+
   var startTime = new Date(startString);
   var endTime = new Date(endString);
-  // console.log(startTime + ', ' + endTime);
 
   if (startTime.getTime() <= objTime.getTime() && endTime.getTime() >= objTime.getTime()) {
     return true;
   };
   return false;
 };
+
+// ---------------
+// This function parses the part of the url that contains primary type parameters.
+// Primary types come in with dashes between words, which are replaces with
+// spaces for comparison against entries in our database.
+// ---------------
 
 function parseToCorrectString (something) {
   var newString = '';
