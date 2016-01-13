@@ -25,6 +25,8 @@ That didn't happen. Because of time constraints (four days!), we had to pursue a
 
 As such, only the graph is populated by our own API. The graph is populated by Chicago Open Data. The crime cards remain unpopulated. C'est la vie. We will complete it as we have time.
 
+*** See 'Operational' branch for recent updates ***
+
 ### Future additions
 - Account Management page
   - Change password
