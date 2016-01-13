@@ -23,7 +23,7 @@ The initial goal was to pull Chicago data into our database and filter it via ou
 
 That didn't happen. Because of time constraints (four days!), we had to pursue all the primary end products (ie map and chart) simultaneously, which resulted in overlapping yet incompatible technologies.
 
-As such, only the graph is populated by our own API. The graph is populated by Chicago Open Data. The crime cards remain unpopulated. C'est la vie. We will complete it as we have time.
+As such, only the graph is populated by our own API. The map is populated by Chicago Open Data. The crime cards remain unpopulated. C'est la vie. We will complete it as we have time.
 
 *** See 'Operational' branch for recent updates ***
 
