@@ -7,14 +7,26 @@ window.onload = function(){
   $('#login_btn').on('click', function() {
     $('#user_forms_container').show();
     $('#register_form').hide();
+    $('#account_page').hide();
     $('#login_form').show();
   });
   // these animation functions enhance the login/ registration process
   $('#register_btn').on('click', function() {
     $('#user_forms_container').show();
     $('#login_form').hide();
+    $('#account_page').hide();
     $('#register_form').show();
   });
+
+  // Account Page
+  $('#account_btn').on('click', function() {
+    $('#user_forms_container').show();
+    $('#login_form').hide();
+    $('#register_form').hide();
+    $('#account_page').show();
+  });
+  //
+
   //closes the UFC
   $('#close_ufc').on('click', function(){
     $('#user_forms_container').hide();

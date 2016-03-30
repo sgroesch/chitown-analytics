@@ -8,13 +8,9 @@ passport.use(new LocalStrategy(Models.Account.authenticate()));
 passport.serializeUser(Models.Account.serializeUser());
 passport.deserializeUser(Models.Account.deserializeUser());
 
-router.get('/', function(req, res, next) {
-  res.render('account', { user: req.user });
-});
-
-router.get('/savesearch', function(req, res, next) {
-  res.render('savesearch');
-});
+// router.get('/', function(req, res, next) {
+//   res.render('account', { user: req.user });
+// });
 
 router.post('/login', passport.authenticate('local', { failureRedirect: '/' }),
   function(req, res) {
@@ -54,6 +50,11 @@ var checkLength = function(inputToCheck, maxLength) {
   }
 };
 
+router.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 router.post('/savemap', function(req, res){
   var mapDetails = {
     primarycrime: req.body.primarycrime,
@@ -73,10 +74,7 @@ router.post('/savemap', function(req, res){
   )
 });
 
-router.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
+
 
 
 module.exports = router;

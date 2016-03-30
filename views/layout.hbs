@@ -11,16 +11,13 @@
     <script type="text/javascript" src="/javascripts/loader.js"></script>
     <script type="text/javascript" src="/javascripts/underscore-min.js"></script>
     <script type="text/javascript" src="/javascripts/backbone-min.js"></script>
-    <script type="text/javascript" src="/javascripts/mapOps.js">
-
-    </script>
+    <script type="text/javascript" src="/javascripts/mapOps.js"></script>
     <script type="text/javascript" src="/javascripts/graphOps.js"></script>
     <script type="text/javascript" src="/javascripts/app.js"></script>
     <script type="text/javascript" src="/javascripts/animate.js"></script>
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCg6XUTd5Bh0CNhz8vyaEjeTUSaVckCZ5A&callback=initMap">
     </script>
-
   </head>
   <body>
     <nav>
@@ -35,7 +32,7 @@
         </ul>
         <ul id="user_list" class="navList">
           {{#if user}}
-            Welcome, {{user.username}}
+            Welcome, {{user.username}} <li id="account_btn" class="userBtns"><i class="fa fa-user"></i></li>
           {{else}}
             <li id="login_btn" class="userBtns"><i class="fa fa-users"></i></li>
             <li id="register_btn" class="userBtns"><i class="fa fa-user-plus"></i></li>
@@ -58,6 +55,10 @@
         <input type="password" name="password" value="" placeholder="Password">
         <input type="submit" value="Create Account">
       </form>
+
+      <div id="account_page">
+
+      </div>
     </div>
     <div id="body_container">
       {{{body}}}
