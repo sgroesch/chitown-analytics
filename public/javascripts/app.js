@@ -126,14 +126,3 @@ $(document).ready(function () {
     }
   };
 });
-
-grabProperty('description','hiddenPrimaryCrime','description option:selected');
-grabProperty('type','hiddenSubcrime','type option:selected');
-grabProperty('startDate','hiddenTimeStart','startDate');
-grabProperty('endDate','hiddenTimeEnd','endDate');
-
-function grabProperty(idToWatch, idToGet, idToGive) {
-  $('#'+idToWatch).on('change', function() {
-    $('#'+idToGet).prop('value', $('#'+idToGive).val());
-  });
-};

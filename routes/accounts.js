@@ -55,26 +55,4 @@ router.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-router.post('/savemap', function(req, res){
-  var mapDetails = {
-    primarycrime: req.body.primarycrime,
-    subcrime: req.body.subcrime,
-    timeStart: req.body.timeStart,
-    timeEnd: req.body.timeEnd
-  }
-  Models.Account.findOneAndUpdate({
-      'username': req.user.username
-    },
-    {
-    }, function(err, account) {
-      if (err) console.log(err);
-      account.map.push(mapDetails);
-      account.save();
-    }
-  )
-});
-
-
-
-
 module.exports = router;

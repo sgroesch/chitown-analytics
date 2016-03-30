@@ -17,47 +17,43 @@ function receive(models_array) {
 
 // This method clumps crimes together by date
 function parseByDate(models) {
-  var tempShared = [];
-  var initial_time = new Date(models[models.length - 1].attributes.date);
-  for (var i = models.length - 1; i >= 0; i--) {
-    var compare_against = new Date(models[i].attributes.date);
-    if(initial_time.getFullYear() == compare_against.getFullYear()) {
-      if (initial_time.getMonth() == compare_against.getMonth()) {
-        if (initial_time.getDate() == compare_against.getDate()) {
-            // console.log(models[i]);
-            tempShared.push([compare_against, models[i].attributes]);
-            models.splice(i, 1);
+  while (models.length > 0) {
+    var tempShared = [];
+    var initial_time = new Date(models[models.length - 1].attributes.date);
+    for (var i = models.length - 1; i >= 0; i--) {
+      var compare_against = new Date(models[i].attributes.date);
+      if(initial_time.getFullYear() == compare_against.getFullYear()) {
+        if (initial_time.getMonth() == compare_against.getMonth()) {
+          if (initial_time.getDate() == compare_against.getDate()) {
+              // console.log(models[i]);
+              tempShared.push([compare_against, models[i].attributes]);
+              models.splice(i, 1);
+          };
         };
       };
     };
-  };
-  crime_by_date.push(tempShared);
-  if (models.length > 0) {
-    parseByDate(models);
+    crime_by_date.push(tempShared);
   }
-  else {
-    // console.log(crime_by_date);
-  };
 };
 
 // This method sorts clumps of crime by date. Did not actually use this.
-function sortClumps (clumped) {
-  var bigArray = [];
-
-  while (clumped.length > 0) {
-    var biggest = 0;
-    var bigIndex = 0;
-    for (var i = 0; i < clumped.length; i++) {
-      if (clumped[i][0][0].getTime() > biggest) {
-        biggest = clumped[i][0][0].getTime();
-        bigIndex = i;
-      };
-    };
-    bigArray.unshift(clumped[bigIndex]);
-    clumped.splice(bigIndex, 1);
-  };
-  return bigArray;
-};
+// function sortClumps (clumped) {
+//   var bigArray = [];
+//
+//   while (clumped.length > 0) {
+//     var biggest = 0;
+//     var bigIndex = 0;
+//     for (var i = 0; i < clumped.length; i++) {
+//       if (clumped[i][0][0].getTime() > biggest) {
+//         biggest = clumped[i][0][0].getTime();
+//         bigIndex = i;
+//       };
+//     };
+//     bigArray.unshift(clumped[bigIndex]);
+//     clumped.splice(bigIndex, 1);
+//   };
+//   return bigArray;
+// };
 
 function convertToGraphEdible(models) {
   for (var i = 0; i < models.length; i++) {
