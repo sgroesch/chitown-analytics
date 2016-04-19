@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var connectionString = "mongodb://localhost/chitown_crimes";
+var connectionString = "mongodb://heroku_zrbb94rt:91om96o1dd0dulq9kj4r7bf8rs@ds011321.mlab.com:11321/heroku_zrbb94rt";
 
 mongoose.connect(connectionString);
 
